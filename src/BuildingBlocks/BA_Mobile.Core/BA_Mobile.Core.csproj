@@ -11,9 +11,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\" />
-	  <Folder Include="Platforms\Android\" />
-	  <Folder Include="Platforms\iOS\" />
+	  <Folder Include="Resources\Images\" />
+	  <Folder Include="Resources\Styles\" />
 	</ItemGroup>
 
 	<ItemGroup>
