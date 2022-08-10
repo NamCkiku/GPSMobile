@@ -1,4 +1,4 @@
-﻿namespace GPSMobile.Core.Pages
+﻿namespace GPSMobile.Core.Views
 {
     public partial class MainPage : ContentPage
     {

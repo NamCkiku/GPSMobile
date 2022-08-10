@@ -1,6 +1,6 @@
-﻿namespace GPSMobile.Core.Pages
+﻿namespace GPSMobile.Core.Views
 {
-    public static class PagesExtensions
+    public static class ViewsExtensions
     {
         public static MauiAppBuilder ConfigurePages(this MauiAppBuilder builder)
         {

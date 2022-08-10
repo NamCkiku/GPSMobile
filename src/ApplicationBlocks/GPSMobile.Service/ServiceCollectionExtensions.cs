@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace BA_Mobile.Service
+namespace GPSMobile.Service
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddServicesCore(this IServiceCollection services)
+        public static IServiceCollection AddServicesGPSMobile(this IServiceCollection services)
         {
             return services;
         }

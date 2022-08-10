@@ -16,6 +16,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\BuildingBlocks\BA_Mobile.Core\BA_Mobile.Core.csproj" />
+	  <ProjectReference Include="..\GPSMobile.Entities\GPSMobile.Entities.csproj" />
+	  <ProjectReference Include="..\GPSMobile.Service\GPSMobile.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\MainPage.xaml.cs">
+	  <Compile Update="Views\MainPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	  <Compile Update="Resources\Styles\Styles.xaml.cs">
@@ -34,12 +36,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\MainPage.xaml">
+	  <MauiXaml Update="Views\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\Styles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 </Project>

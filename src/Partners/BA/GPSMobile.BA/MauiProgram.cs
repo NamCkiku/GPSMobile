@@ -1,5 +1,4 @@
-﻿using BA_Mobile.Service;
-using GPSMobile.Core.Pages;
+﻿using GPSMobile.Core;
 
 namespace GPSMobile.BA
 {
@@ -10,13 +9,8 @@ namespace GPSMobile.BA
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .ConfigurePages()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
-                    fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
-                });
-            builder.Services.AddServices();
+                .Configure();
+
             return builder.Build();
         }
     }
