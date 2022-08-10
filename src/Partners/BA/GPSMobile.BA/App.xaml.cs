@@ -1,6 +1,6 @@
 ﻿using GPSMobile.BA.Resources.Themes;
-using GPSMobile.Core.Pages;
 using GPSMobile.Core.Resources.Styles;
+using GPSMobile.Core.Views;
 
 namespace GPSMobile.BA
 {
