@@ -11,8 +11,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
-	  <None Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
 	  <None Remove="Resources\Images\dotnet_bot.svg" />
 	</ItemGroup>
 
@@ -26,14 +24,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Include="Resources\Fonts\OpenSans-Regular.ttf" />
-	  <MauiFont Include="Resources\Fonts\OpenSans-Semibold.ttf" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiImage Include="Resources\Images\dotnet_bot.svg">
 	    <BaseSize>168,208</BaseSize>
 	  </MauiImage>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Styles\Styles.xaml.cs">
+	    <DependentUpon>Styles.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Styles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
