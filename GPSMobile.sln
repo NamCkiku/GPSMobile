@@ -33,21 +33,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CNN", "CNN", "{C5CE4E43-188
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VIVIEW", "VIVIEW", "{561155C1-5BA1-4A46-8FF7-81136E70A828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSMobile.BA", "src\Partners\BA\GPSMobile.BA\GPSMobile.BA.csproj", "{E98092FA-5650-4C8C-BCA9-2E73A771DA73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.BA", "src\Partners\BA\GPSMobile.BA\GPSMobile.BA.csproj", "{E98092FA-5650-4C8C-BCA9-2E73A771DA73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.Core", "src\BuildingBlocks\BA_Mobile.Core\BA_Mobile.Core.csproj", "{70A1DBAE-F7CD-4F56-983E-91ADECB837C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.Core", "src\BuildingBlocks\BA_Mobile.Core\BA_Mobile.Core.csproj", "{70A1DBAE-F7CD-4F56-983E-91ADECB837C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.Entities", "src\BuildingBlocks\BA_Mobile.Entities\BA_Mobile.Entities.csproj", "{FC0356C5-8580-4107-9270-303E0B49912D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.Entities", "src\BuildingBlocks\BA_Mobile.Entities\BA_Mobile.Entities.csproj", "{FC0356C5-8580-4107-9270-303E0B49912D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.Service", "src\BuildingBlocks\BA_Mobile.Service\BA_Mobile.Service.csproj", "{9486DEB6-D48A-4756-B1B0-7BDE9E8E1B29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.Service", "src\BuildingBlocks\BA_Mobile.Service\BA_Mobile.Service.csproj", "{9486DEB6-D48A-4756-B1B0-7BDE9E8E1B29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.Utilities", "src\BuildingBlocks\BA_Mobile.Utilities\BA_Mobile.Utilities.csproj", "{6D71D1EC-A537-4EA5-89FD-8603047D9041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.Utilities", "src\BuildingBlocks\BA_Mobile.Utilities\BA_Mobile.Utilities.csproj", "{6D71D1EC-A537-4EA5-89FD-8603047D9041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSMobile.Service", "src\ApplicationBlocks\GPSMobile.Service\GPSMobile.Service.csproj", "{F0645939-730C-42C9-8BE2-5422C0211566}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Service", "src\ApplicationBlocks\GPSMobile.Service\GPSMobile.Service.csproj", "{F0645939-730C-42C9-8BE2-5422C0211566}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSMobile.Entities", "src\ApplicationBlocks\GPSMobile.Entities\GPSMobile.Entities.csproj", "{6647B796-3C6A-42CE-9B23-0C999633042D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Entities", "src\ApplicationBlocks\GPSMobile.Entities\GPSMobile.Entities.csproj", "{6647B796-3C6A-42CE-9B23-0C999633042D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSMobile.Core", "src\ApplicationBlocks\GPSMobile.Core\GPSMobile.Core.csproj", "{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Core", "src\ApplicationBlocks\GPSMobile.Core\GPSMobile.Core.csproj", "{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.GoogleMaps", "src\BuildingBlocks\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj", "{D85A745D-E957-4D5D-A392-DDDBC78880BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{F0645939-730C-42C9-8BE2-5422C0211566} = {8CB3AA7F-CE71-4207-847B-0B4010C32DFC}
 		{6647B796-3C6A-42CE-9B23-0C999633042D} = {E9132626-ABF1-4968-852E-FFF3BEC3521C}
 		{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE} = {9BFF82F6-5277-469A-8410-78D3BC6418E1}
+		{D85A745D-E957-4D5D-A392-DDDBC78880BD} = {477A142E-89BC-4BE9-AE50-758BFF86953E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A7A8FB-FDD1-4A63-8196-20F8629D6E23}
