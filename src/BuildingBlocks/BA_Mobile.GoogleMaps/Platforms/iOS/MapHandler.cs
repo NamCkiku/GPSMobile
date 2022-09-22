@@ -1,12 +1,12 @@
-﻿using Google.Maps;
-using UIKit;
-using BA_Mobile.GoogleMaps.Internals;
-using GCameraPosition = Google.Maps.CameraPosition;
+﻿using BA_Mobile.GoogleMaps.Internals;
 using BA_Mobile.GoogleMaps.iOS;
-using BA_Mobile.GoogleMaps.Logics.iOS;
-using BA_Mobile.GoogleMaps.Logics;
-using Microsoft.Maui.Handlers;
 using BA_Mobile.GoogleMaps.iOS.Extensions;
+using BA_Mobile.GoogleMaps.Logics;
+using BA_Mobile.GoogleMaps.Logics.iOS;
+using Google.Maps;
+using Microsoft.Maui.Handlers;
+using UIKit;
+using GCameraPosition = Google.Maps.CameraPosition;
 
 namespace BA_Mobile.GoogleMaps.Handlers
 {
@@ -26,7 +26,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
         private bool _ready;
 
-        internal IList<BaseLogic<MapView>> Logics { get; set; }
+        public IList<BaseLogic<MapView>> Logics { get; set; }
 
         protected override MapView CreatePlatformView()
         {
@@ -111,7 +111,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
             base.DisconnectHandler(platformView);
         }
-        
+
         public static void MapMapType(MapHandler handler, Map map)
         {
             handler.NativeMap.MapType = map.MapType switch
@@ -126,7 +126,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         }
         public static void MapPadding(MapHandler handler, Map map)
         {
-           handler.NativeMap.Padding = map.Padding.ToUIEdgeInsets();
+            handler.NativeMap.Padding = map.Padding.ToUIEdgeInsets();
         }
         public static void MapIsTrafficEnabled(MapHandler handler, Map map)
         {
@@ -134,7 +134,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         }
         public static void MapIsIndoorEnabled(MapHandler handler, Map map)
         {
-           handler.NativeMap.IndoorEnabled = map.IsIndoorEnabled;
+            handler.NativeMap.IndoorEnabled = map.IsIndoorEnabled;
         }
         public static void MapMyLocationEnabled(MapHandler handler, Map map)
         {
@@ -169,7 +169,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
             var snapshot = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
 
-            // Why using task? Because Android side is asynchronous. 
+            // Why using task? Because Android side is asynchronous.
             Task.Run(() =>
             {
                 snapshotMessage.OnSnapshot.Invoke(snapshot.AsPNG().AsStream());
@@ -263,6 +263,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         {
         }
 
-        #endregion    
+        #endregion Overridable Members
+
     }
 }

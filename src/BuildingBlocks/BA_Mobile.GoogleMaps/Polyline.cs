@@ -50,7 +50,7 @@ namespace BA_Mobile.GoogleMaps
 
         public object Tag { get; set; }
 
-        public object NativeObject { get; internal set; }
+        public object NativeObject { get; set; }
 
         public event EventHandler Clicked;
 
@@ -58,7 +58,7 @@ namespace BA_Mobile.GoogleMaps
         {
         }
 
-        internal bool SendTap()
+        public bool SendTap()
         {
             EventHandler handler = Clicked;
             if (handler == null)
@@ -68,7 +68,7 @@ namespace BA_Mobile.GoogleMaps
             return true;
         }
 
-        internal void SetOnPositionsChanged(Action<Polyline, NotifyCollectionChangedEventArgs> handler)
+        public void SetOnPositionsChanged(Action<Polyline, NotifyCollectionChangedEventArgs> handler)
         {
             _positionsChangedHandler = handler;
             if (handler != null)

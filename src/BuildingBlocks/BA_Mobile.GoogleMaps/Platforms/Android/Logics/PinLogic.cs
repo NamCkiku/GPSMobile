@@ -8,7 +8,7 @@ using BA_Mobile.GoogleMaps.Android.Factories;
 
 namespace BA_Mobile.GoogleMaps.Logics.Android
 {
-    internal class PinLogic : DefaultPinLogic<Marker, GoogleMap>
+    public class PinLogic : DefaultPinLogic<Marker, GoogleMap>
     {
         protected override IList<Pin> GetItems(Map map) => map.Pins;
 
@@ -39,7 +39,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             _onMarkerDeleted = onMarkerDeleted;
         }
 
-        internal override void Register(GoogleMap oldNativeMap, Map oldMap, GoogleMap newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(GoogleMap oldNativeMap, Map oldMap, GoogleMap newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap, oldMap, newNativeMap, newMap, handler);
 
@@ -55,7 +55,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             }
         }
 
-        internal override void Unregister(GoogleMap nativeMap, Map map)
+        public override void Unregister(GoogleMap nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -237,7 +237,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             _withoutUpdateNative = false;
         }
 
-        internal override void OnMapPropertyChanged(string propertyName)
+        public override void OnMapPropertyChanged(string propertyName)
         {
             if (propertyName == Map.SelectedPinProperty.PropertyName)
             {

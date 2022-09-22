@@ -5,7 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         public Position Point { get; }
 
-        internal MapLongClickedEventArgs(Position point)
+        public MapLongClickedEventArgs(Position point)
         {
             this.Point = point;
         }

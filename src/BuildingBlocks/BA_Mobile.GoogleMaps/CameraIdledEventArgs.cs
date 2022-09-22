@@ -5,7 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         public CameraPosition Position { get;  }
 
-        internal CameraIdledEventArgs(CameraPosition position)
+        public CameraIdledEventArgs(CameraPosition position)
         {
             this.Position = position;
         }

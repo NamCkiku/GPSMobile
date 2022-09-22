@@ -75,7 +75,7 @@ namespace BA_Mobile.GoogleMaps
             set { SetValue(MapToolbarEnabledProperty, value); }
         }
 
-        internal UiSettings()
+        public UiSettings()
         {
         }
     }

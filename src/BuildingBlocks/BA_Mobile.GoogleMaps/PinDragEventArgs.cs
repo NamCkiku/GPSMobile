@@ -9,7 +9,7 @@ namespace BA_Mobile.GoogleMaps
             private set;
         }
 
-        internal PinDragEventArgs(Pin pin)
+        public PinDragEventArgs(Pin pin)
         {
             this.Pin = pin;
         }

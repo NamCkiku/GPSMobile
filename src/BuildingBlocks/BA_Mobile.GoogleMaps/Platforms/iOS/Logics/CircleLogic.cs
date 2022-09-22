@@ -5,11 +5,11 @@ using Microsoft.Maui.Platform;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal class CircleLogic : DefaultCircleLogic<NativeCircle, MapView>
+    public class CircleLogic : DefaultCircleLogic<NativeCircle, MapView>
     {
         protected override IList<Circle> GetItems(Map map) => map.Circles;
 
-        internal override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap,oldMap, newNativeMap, newMap, handler);
 
@@ -19,7 +19,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             }
         }
 
-        internal override void Unregister(MapView nativeMap, Map map)
+        public override void Unregister(MapView nativeMap, Map map)
         {
             if (nativeMap != null)
             {

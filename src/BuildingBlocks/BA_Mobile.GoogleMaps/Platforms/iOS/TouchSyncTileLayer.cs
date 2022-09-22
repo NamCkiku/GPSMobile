@@ -4,7 +4,7 @@ using NativeSyncTileLayer = Google.Maps.SyncTileLayer;
 
 namespace BA_Mobile.GoogleMaps.iOS
 {
-    internal class TouchSyncTileLayer : NativeSyncTileLayer
+    public class TouchSyncTileLayer : NativeSyncTileLayer
     {
         private readonly Func<int, int, int, byte[]> _tileImageSync;
 

@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Logics.Android
 {
-    internal sealed class UiSettingsLogic : BaseUiSettingsLogic<GoogleMap>
+    public sealed class UiSettingsLogic : BaseUiSettingsLogic<GoogleMap>
     {
         // These properties are 'null' when call Initialize()
         // If 'not null' then set true/false in app's page constructor.

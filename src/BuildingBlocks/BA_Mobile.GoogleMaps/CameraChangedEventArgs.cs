@@ -8,7 +8,7 @@ namespace BA_Mobile.GoogleMaps
             get;
         }
 
-        internal CameraChangedEventArgs(CameraPosition position)
+        public CameraChangedEventArgs(CameraPosition position)
         {
             Position = position;
         }

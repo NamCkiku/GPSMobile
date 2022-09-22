@@ -5,7 +5,7 @@ using ATileLayer = Google.Maps.TileLayer;
 
 namespace BA_Mobile.GoogleMaps.iOS
 {
-    internal class TouchAsyncTileLayer : ATileLayer
+    public class TouchAsyncTileLayer : ATileLayer
     {
         private readonly Func<int, int, int, Task<byte[]>> _tileImageAsync;
 

@@ -9,7 +9,7 @@ using Microsoft.Maui.Platform;
 
 namespace BA_Mobile.GoogleMaps
 {
-    internal static class Utils
+    public static class Utils
     {
         public static UIView ConvertMauiToNative(View view, CGRect size, IElementHandler elementHandler)
         {

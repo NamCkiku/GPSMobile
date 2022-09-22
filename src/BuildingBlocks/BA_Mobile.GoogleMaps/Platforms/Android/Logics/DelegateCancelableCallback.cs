@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Android.Logics
 {
-    internal class DelegateCancelableCallback : Java.Lang.Object, global::Android.Gms.Maps.GoogleMap.ICancelableCallback
+    public class DelegateCancelableCallback : Java.Lang.Object, global::Android.Gms.Maps.GoogleMap.ICancelableCallback
     {
         private readonly Action _onFinish;
         private readonly Action _onCancel;

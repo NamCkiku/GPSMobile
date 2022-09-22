@@ -8,7 +8,7 @@ using CoreAnimation;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal sealed class CameraLogic : BaseCameraLogic<MapView>
+    public sealed class CameraLogic : BaseCameraLogic<MapView>
     {
         private readonly Action _raiseCameraPositionChanged;
 
@@ -42,7 +42,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             MoveToRegion(m.Span, m.Animate);
         }
 
-        internal void MoveToRegion(MapSpan mapSpan, bool animated = true)
+        public void MoveToRegion(MapSpan mapSpan, bool animated = true)
         {
             Position center = mapSpan.Center;
             var halfLat = mapSpan.LatitudeDegrees / 2d;
@@ -76,7 +76,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             m.Callback.OnFinished();
         }
 
-        internal void MoveCamera(CameraUpdate update)
+        public void MoveCamera(CameraUpdate update)
         {
             _nativeMap.MoveCamera(update.ToIOS());
 

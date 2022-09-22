@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Internals
 {
-    internal static class GeoConstants
+    public static class GeoConstants
     {
         public const double EarthRadiusKm = 6371;
         public const double EarthCircumferenceKm = EarthRadiusKm * 2 * Math.PI;

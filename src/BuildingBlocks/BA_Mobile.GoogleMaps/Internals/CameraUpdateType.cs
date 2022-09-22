@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Internals
 {
-    internal enum CameraUpdateType
+    public enum CameraUpdateType
     {
         LatLng,
         LatLngZoom,

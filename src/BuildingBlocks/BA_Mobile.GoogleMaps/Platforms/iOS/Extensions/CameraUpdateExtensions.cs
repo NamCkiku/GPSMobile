@@ -4,7 +4,7 @@ using GCameraUpdate = Google.Maps.CameraUpdate;
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class CameraUpdateExtensions
+    public static class CameraUpdateExtensions
     {
         public static GCameraUpdate ToIOS(this CameraUpdate self)
         {

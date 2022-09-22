@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Android.Extensions
 {
-    internal static class CameraPositionExtensions
+    public static class CameraPositionExtensions
     {
         public static CameraPosition ToXamarinForms(this GCameraPosition self)
         {

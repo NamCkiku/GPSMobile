@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Internals
 {
-    internal class DelegateAnimationCallback : IAnimationCallback
+    public class DelegateAnimationCallback : IAnimationCallback
     {
         readonly Action _onFinished;
         readonly Action _onCanceled;

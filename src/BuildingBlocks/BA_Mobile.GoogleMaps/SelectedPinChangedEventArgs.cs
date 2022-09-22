@@ -9,7 +9,7 @@ namespace BA_Mobile.GoogleMaps
             private set;
         }
 
-        internal SelectedPinChangedEventArgs(Pin selectedPin)
+        public SelectedPinChangedEventArgs(Pin selectedPin)
         {
             this.SelectedPin = selectedPin;
         }

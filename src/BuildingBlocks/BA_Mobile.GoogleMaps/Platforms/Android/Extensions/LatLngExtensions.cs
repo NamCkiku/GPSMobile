@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Android.Extensions
 {
-    internal static class LatLngExtensions
+    public static class LatLngExtensions
     {
         public static Position ToPosition(this LatLng self)
         {

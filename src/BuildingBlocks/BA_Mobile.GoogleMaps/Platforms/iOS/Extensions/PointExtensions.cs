@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class PointExtensions
+    public static class PointExtensions
     {
         public static CGPoint ToCGPoint(this Point self)
         {

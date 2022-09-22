@@ -8,7 +8,7 @@ using UIKit;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal class GroundOverlayLogic : DefaultGroundOverlayLogic<NativeGroundOverlay, MapView>
+    public class GroundOverlayLogic : DefaultGroundOverlayLogic<NativeGroundOverlay, MapView>
     {
         private readonly IImageFactory _imageFactory;
         
@@ -19,7 +19,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             _imageFactory = imageFactory;
         }
 
-        internal override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap, oldMap, newNativeMap, newMap, handler);
 
@@ -29,7 +29,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             }
         }
 
-        internal override void Unregister(MapView nativeMap, Map map)
+        public override void Unregister(MapView nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -77,17 +77,17 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             targetOuterItem?.SendTap();
         }
 
-        internal override void OnUpdateBearing(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateBearing(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             nativeItem.Bearing = outerItem.Bearing;
         }
 
-        internal override void OnUpdateBounds(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateBounds(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             nativeItem.Bounds = outerItem.Bounds.ToCoordinateBounds();
         }
 
-        internal override void OnUpdateIcon(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateIcon(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             if (outerItem.Icon.Type == BitmapDescriptorType.View)
             {
@@ -100,17 +100,17 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             }
         }
 
-        internal override void OnUpdateIsClickable(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateIsClickable(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             nativeItem.Tappable = outerItem.IsClickable;
         }
 
-        internal override void OnUpdateTransparency(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateTransparency(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             nativeItem.Opacity = 1f - outerItem.Transparency;
         }
 
-        internal override void OnUpdateZIndex(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
+        public override void OnUpdateZIndex(GroundOverlay outerItem, NativeGroundOverlay nativeItem)
         {
             nativeItem.ZIndex = outerItem.ZIndex;
         }

@@ -5,11 +5,11 @@ using NativePolygon = Google.Maps.Polygon;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal class PolygonLogic : DefaultPolygonLogic<NativePolygon, MapView>
+    public class PolygonLogic : DefaultPolygonLogic<NativePolygon, MapView>
     {
         protected override IList<Polygon> GetItems(Map map) => map.Polygons;
 
-        internal override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap, oldMap, newNativeMap, newMap, handler);
 
@@ -19,7 +19,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             }
         }
 
-        internal override void Unregister(MapView nativeMap, Map map)
+        public override void Unregister(MapView nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -78,27 +78,27 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             targetOuterItem?.SendTap();
         }
 
-        internal override void OnUpdateIsClickable(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateIsClickable(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.Tappable = outerItem.IsClickable;
         }
 
-        internal override void OnUpdateStrokeColor(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateStrokeColor(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.StrokeColor = outerItem.StrokeColor.ToPlatform();
         }
 
-        internal override void OnUpdateStrokeWidth(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateStrokeWidth(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.StrokeWidth = outerItem.StrokeWidth;
         }
 
-        internal override void OnUpdateFillColor(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateFillColor(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.FillColor = outerItem.FillColor.ToPlatform();
         }
 
-        internal override void OnUpdateZIndex(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateZIndex(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.ZIndex = outerItem.ZIndex;
         }

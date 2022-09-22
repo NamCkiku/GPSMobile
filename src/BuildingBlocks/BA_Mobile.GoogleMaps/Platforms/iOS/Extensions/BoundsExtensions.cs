@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class BoundsExtensions
+    public static class BoundsExtensions
     {
         public static CoordinateBounds ToCoordinateBounds(this Bounds self)
         {

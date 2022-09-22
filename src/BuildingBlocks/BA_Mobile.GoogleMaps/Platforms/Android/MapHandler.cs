@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.Gms.Maps;
+﻿using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.OS;
@@ -23,12 +22,12 @@ namespace BA_Mobile.GoogleMaps.Handlers
         CameraLogic _cameraLogic;
         UiSettingsLogic _uiSettingsLogic = new();
 
-        internal float ScaledDensity;
+        public float ScaledDensity;
 
-        internal IList<BaseLogic<GoogleMap>> Logics;
+        public IList<BaseLogic<GoogleMap>> Logics;
 
         static Bundle s_bundle;
-        internal static Bundle Bundle { set { s_bundle = value; } }
+        public static Bundle Bundle { set { s_bundle = value; } }
 
         protected internal static PlatformConfig Config { protected get; set; }
 
@@ -70,7 +69,6 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
         protected override async void ConnectHandler(MapView platformView)
         {
-
             _cameraLogic = new CameraLogic(UpdateVisibleRegion);
 
             Logics = new List<BaseLogic<GoogleMap>>
@@ -181,7 +179,6 @@ namespace BA_Mobile.GoogleMaps.Handlers
             }));
         }
 
-
         void InitializeLogic()
         {
             _cameraLogic.MoveCamera(Map.InitialCameraUpdate);
@@ -234,7 +231,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
             if (handler.NativeMap != null)
             {
                 handler.NativeMap.TrafficEnabled = map.IsTrafficEnabled;
-            }    
+            }
         }
 
         public static void MapIsIndoorEnabled(MapHandler handler, Map map)
@@ -284,7 +281,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
                 _uiSettingsLogic.Unregister();
 
-               Map.OnSnapshot -= OnSnapshot;
+                Map.OnSnapshot -= OnSnapshot;
                 _cameraLogic.Unregister();
 
                 foreach (var logic in Logics)
@@ -305,9 +302,6 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 System.Diagnostics.Debug.WriteLine($"Uninitialize failed. - {message}");
             }
         }
-
-
-
 
         #region Overridable Members
 
@@ -351,7 +345,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         {
         }
 
-        #endregion
+        #endregion Overridable Members
 
         void UpdateVisibleRegion(LatLng pos)
         {
@@ -385,7 +379,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
             public MapHandler Handler { get; set; }
             public void OnMapClick(LatLng point)
             {
-               Handler.VirtualView.SendMapClicked(point.ToPosition());
+                Handler.VirtualView.SendMapClicked(point.ToPosition());
             }
         }
 

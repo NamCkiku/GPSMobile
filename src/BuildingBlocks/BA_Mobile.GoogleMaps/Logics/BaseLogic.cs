@@ -4,9 +4,9 @@ using System.ComponentModel;
 
 namespace BA_Mobile.GoogleMaps.Logics
 {
-    internal abstract class BaseLogic<TNativeMap>
+    public abstract class BaseLogic<TNativeMap>
     {
-        public float ScaledDensity { get; internal set; }
+        public float ScaledDensity { get; set; }
 
         public TNativeMap NativeMap { get; private set; }
         public Map Map { get; private set; }
@@ -15,7 +15,7 @@ namespace BA_Mobile.GoogleMaps.Logics
 
         protected abstract INotifyCollectionChanged GetItemAsNotifyCollectionChanged(Map map);
 
-        internal virtual void Register(TNativeMap oldNativeMap, Map oldMap, TNativeMap newNativeMap, Map newMap, IElementHandler handler)
+        public virtual void Register(TNativeMap oldNativeMap, Map oldMap, TNativeMap newNativeMap, Map newMap, IElementHandler handler)
         {
             this.NativeMap = newNativeMap;
             this.Map = newMap;
@@ -31,7 +31,7 @@ namespace BA_Mobile.GoogleMaps.Logics
                 inccItems.CollectionChanged += OnCollectionChanged;
         }
 
-        internal virtual void Unregister(TNativeMap nativeMap, Map map)
+        public virtual void Unregister(TNativeMap nativeMap, Map map)
         {
             if (map != null)
             {
@@ -76,11 +76,11 @@ namespace BA_Mobile.GoogleMaps.Logics
 
         protected abstract void ResetItems();
 
-        internal abstract void NotifyReset();
+        public abstract void NotifyReset();
 
-        internal abstract void RestoreItems();
+        public abstract void RestoreItems();
 
-        internal virtual void OnMapPropertyChanged(string propertyName)
+        public virtual void OnMapPropertyChanged(string propertyName)
         {
         }
     }

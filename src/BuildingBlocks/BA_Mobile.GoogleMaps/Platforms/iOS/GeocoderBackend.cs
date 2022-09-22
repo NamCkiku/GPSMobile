@@ -18,7 +18,7 @@ using nuint=global::System.UInt32;
 
 namespace BA_Mobile.GoogleMaps.iOS
 {
-    internal class GeocoderBackend
+    public class GeocoderBackend
     {
         public static void Register()
         {

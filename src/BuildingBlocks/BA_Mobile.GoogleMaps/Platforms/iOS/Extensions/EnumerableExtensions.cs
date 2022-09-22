@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class EnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static MutablePath ToMutablePath(this IEnumerable<Position> self)
         {

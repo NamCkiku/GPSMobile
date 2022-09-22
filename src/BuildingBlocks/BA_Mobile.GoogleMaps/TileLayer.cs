@@ -6,19 +6,19 @@ namespace BA_Mobile.GoogleMaps
         public static readonly BindableProperty ZIndexProperty = BindableProperty.Create(nameof(ZIndex), typeof(int), typeof(TileLayer), -1);
 
         // For URI specific SyncTileLayer
-        internal Func<int, int, int, Uri> MakeTileUri { get; }
+        public Func<int, int, int, Uri> MakeTileUri { get; }
 
         // For Image specific SyncTileLayer
-        internal Func<int, int, int, byte[]> TileImageSync { get; }
+        public Func<int, int, int, byte[]> TileImageSync { get; }
 
         // For Image specific AsyncTileLayer
-        internal Func<int, int, int, Task<byte[]>> TileImageAsync { get; }
+        public Func<int, int, int, Task<byte[]>> TileImageAsync { get; }
 
         public int TileSize { get; } = 256;
 
         public object Tag { get; set; }
 
-        public object NativeObject { get; internal set; }
+        public object NativeObject { get; set; }
 
         public int ZIndex
         {

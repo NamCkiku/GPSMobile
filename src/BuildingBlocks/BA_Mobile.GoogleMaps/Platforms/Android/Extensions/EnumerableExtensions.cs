@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Android.Extensions
 {
-    internal static class EnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static JavaList<T> ToJavaList<T>(this IEnumerable<T> self)
         {

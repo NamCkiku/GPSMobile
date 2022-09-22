@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Internals
 {
-    internal sealed class TakeSnapshotMessage
+    public sealed class TakeSnapshotMessage
     {
         public Action<Stream> OnSnapshot { get; }
 

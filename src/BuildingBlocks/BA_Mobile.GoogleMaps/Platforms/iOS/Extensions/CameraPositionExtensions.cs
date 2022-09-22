@@ -3,7 +3,7 @@ using GCameraPosition = Google.Maps.CameraPosition;
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class CameraPositionExtensions
+    public static class CameraPositionExtensions
     {
         public static CameraPosition ToXamarinForms(this GCameraPosition self)
         {

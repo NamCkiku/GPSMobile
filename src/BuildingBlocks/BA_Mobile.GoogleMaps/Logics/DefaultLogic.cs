@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace BA_Mobile.GoogleMaps.Logics
 {
-    internal abstract class DefaultLogic<TOuter, TNative, TNativeMap> : BaseLogic<TNativeMap>
+    public abstract class DefaultLogic<TOuter, TNative, TNativeMap> : BaseLogic<TNativeMap>
         where TOuter : BindableObject
         where TNative : class
         where TNativeMap : class
@@ -60,7 +60,7 @@ namespace BA_Mobile.GoogleMaps.Logics
             _outerItems.Clear();
         }
 
-        internal override void RestoreItems()
+        public override void RestoreItems()
         {
             var items = GetItems(Map);
 
@@ -80,7 +80,7 @@ namespace BA_Mobile.GoogleMaps.Logics
             AddItems((IList)items);
         }
 
-        internal override void NotifyReset() =>
+        public override void NotifyReset() =>
             OnCollectionChanged(GetItems(Map), new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
         protected virtual void OnItemPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

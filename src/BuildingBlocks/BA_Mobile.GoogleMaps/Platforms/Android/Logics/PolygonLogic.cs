@@ -8,11 +8,11 @@ using NativePolygon = Android.Gms.Maps.Model.Polygon;
 
 namespace BA_Mobile.GoogleMaps.Logics.Android
 {
-    internal class PolygonLogic : DefaultPolygonLogic<NativePolygon, GoogleMap>
+    public class PolygonLogic : DefaultPolygonLogic<NativePolygon, GoogleMap>
     {
         protected override IList<Polygon> GetItems(Map map) => map.Polygons;
 
-        internal override void Register(GoogleMap oldNativeMap, Map oldMap, GoogleMap newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(GoogleMap oldNativeMap, Map oldMap, GoogleMap newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap, oldMap, newNativeMap, newMap, handler);
 
@@ -22,7 +22,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             }
         }
 
-        internal override void Unregister(GoogleMap nativeMap, Map map)
+        public override void Unregister(GoogleMap nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -99,28 +99,28 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             targetOuterItem?.SendTap();
         }
 
-        internal override void OnUpdateIsClickable(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateIsClickable(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.Clickable = outerItem.IsClickable;
         }
 
-        internal override void OnUpdateStrokeColor(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateStrokeColor(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.StrokeColor = outerItem.StrokeColor.ToAndroid();
         }
 
-        internal override void OnUpdateStrokeWidth(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateStrokeWidth(Polygon outerItem, NativePolygon nativeItem)
         {
             // TODO: convert from px to pt. Is this collect? (looks like same iOS Maps)
             nativeItem.StrokeWidth = outerItem.StrokeWidth * this.ScaledDensity;
         }
 
-        internal override void OnUpdateFillColor(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateFillColor(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.FillColor = outerItem.FillColor.ToAndroid();
         }
 
-        internal override void OnUpdateZIndex(Polygon outerItem, NativePolygon nativeItem)
+        public override void OnUpdateZIndex(Polygon outerItem, NativePolygon nativeItem)
         {
             nativeItem.ZIndex = outerItem.ZIndex;
         }

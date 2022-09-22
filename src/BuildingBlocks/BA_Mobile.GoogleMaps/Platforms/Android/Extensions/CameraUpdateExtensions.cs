@@ -4,7 +4,7 @@ using BA_Mobile.GoogleMaps.Internals;
 
 namespace BA_Mobile.GoogleMaps.Android.Extensions
 {
-    internal static class CameraUpdateExtensions
+    public static class CameraUpdateExtensions
     {
         public static GCameraUpdate ToAndroid(this CameraUpdate self, float scaledDensity)
         {

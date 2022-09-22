@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Logics
 {
-    internal abstract class DefaultPolygonLogic<TNative, TNativeMap> : DefaultLogic<Polygon, TNative, TNativeMap>
+    public abstract class DefaultPolygonLogic<TNative, TNativeMap> : DefaultLogic<Polygon, TNative, TNativeMap>
         where TNative : class
         where TNativeMap : class
     {
@@ -22,10 +22,10 @@ namespace BA_Mobile.GoogleMaps.Logics
             else if (e.PropertyName == Polygon.ZIndexProperty.PropertyName) OnUpdateZIndex(outerItem, nativeItem);
         }
 
-        internal abstract void OnUpdateIsClickable(Polygon outerItem, TNative nativeItem);
-        internal abstract void OnUpdateStrokeColor(Polygon outerItem, TNative nativeItem);
-        internal abstract void OnUpdateStrokeWidth(Polygon outerItem, TNative nativeItem);
-        internal abstract void OnUpdateFillColor(Polygon outerItem, TNative nativeItem);
-        internal abstract void OnUpdateZIndex(Polygon outerItem, TNative nativeItem);
+        public abstract void OnUpdateIsClickable(Polygon outerItem, TNative nativeItem);
+        public abstract void OnUpdateStrokeColor(Polygon outerItem, TNative nativeItem);
+        public abstract void OnUpdateStrokeWidth(Polygon outerItem, TNative nativeItem);
+        public abstract void OnUpdateFillColor(Polygon outerItem, TNative nativeItem);
+        public abstract void OnUpdateZIndex(Polygon outerItem, TNative nativeItem);
     }
 }

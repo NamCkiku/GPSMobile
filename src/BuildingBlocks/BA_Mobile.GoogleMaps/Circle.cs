@@ -1,9 +1,8 @@
-﻿
-namespace BA_Mobile.GoogleMaps
+﻿namespace BA_Mobile.GoogleMaps
 {
     public sealed class Circle : BindableObject
     {
-        public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(nameof(StrokeWidth) , typeof(float), typeof(Circle), 1f);
+        public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(nameof(StrokeWidth), typeof(float), typeof(Circle), 1f);
         public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(nameof(StrokeColor), typeof(Color), typeof(Circle), Colors.Blue);
         public static readonly BindableProperty FillColorProperty = BindableProperty.Create(nameof(FillColor), typeof(Color), typeof(Circle), Colors.Blue);
         public static readonly BindableProperty IsClickableProperty = BindableProperty.Create("IsClickable", typeof(bool), typeof(Circle), false);
@@ -56,7 +55,7 @@ namespace BA_Mobile.GoogleMaps
 
         public object Tag { get; set; }
 
-        public object NativeObject { get; internal set; }
+        public object NativeObject { get; set; }
 
         public event EventHandler Clicked;
 
@@ -64,7 +63,7 @@ namespace BA_Mobile.GoogleMaps
         {
         }
 
-        internal bool SendTap()
+        public bool SendTap()
         {
             EventHandler handler = Clicked;
             if (handler == null)
@@ -75,4 +74,3 @@ namespace BA_Mobile.GoogleMaps
         }
     }
 }
-

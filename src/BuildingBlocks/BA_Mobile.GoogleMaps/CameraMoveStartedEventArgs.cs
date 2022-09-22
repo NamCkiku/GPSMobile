@@ -5,7 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         public bool IsGesture { get; }
 
-        internal CameraMoveStartedEventArgs(bool isGesture)
+        public CameraMoveStartedEventArgs(bool isGesture)
         {
             IsGesture = isGesture;
         }

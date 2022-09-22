@@ -5,7 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         public Pin Pin { get; }
 
-        internal InfoWindowLongClickedEventArgs(Pin pin)
+        public InfoWindowLongClickedEventArgs(Pin pin)
         {
             this.Pin = pin;
         }

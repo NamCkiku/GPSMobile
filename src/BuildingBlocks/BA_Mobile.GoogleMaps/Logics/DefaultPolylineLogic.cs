@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Logics
 {
-    internal abstract class DefaultPolylineLogic<TNative, TNativeMap> : DefaultLogic<Polyline, TNative, TNativeMap>
+    public abstract class DefaultPolylineLogic<TNative, TNativeMap> : DefaultLogic<Polyline, TNative, TNativeMap>
         where TNative : class
         where TNativeMap : class
     {
@@ -21,9 +21,9 @@ namespace BA_Mobile.GoogleMaps.Logics
             else if (e.PropertyName == Polyline.ZIndexProperty.PropertyName) OnUpdateZIndex(outerItem, nativeItem);
         }
 
-        internal abstract void OnUpdateIsClickable(Polyline outerItem, TNative nativeItem);
-        internal abstract void OnUpdateStrokeColor(Polyline outerItem, TNative nativeItem);
-        internal abstract void OnUpdateStrokeWidth(Polyline outerItem, TNative nativeItem);
-        internal abstract void OnUpdateZIndex(Polyline outerItem, TNative nativeItem);
+        public abstract void OnUpdateIsClickable(Polyline outerItem, TNative nativeItem);
+        public abstract void OnUpdateStrokeColor(Polyline outerItem, TNative nativeItem);
+        public abstract void OnUpdateStrokeWidth(Polyline outerItem, TNative nativeItem);
+        public abstract void OnUpdateZIndex(Polyline outerItem, TNative nativeItem);
     }
 }

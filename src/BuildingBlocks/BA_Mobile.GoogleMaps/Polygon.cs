@@ -59,7 +59,7 @@ namespace BA_Mobile.GoogleMaps
 
         public object Tag { get; set; }
 
-        public object NativeObject { get; internal set; }
+        public object NativeObject { get; set; }
 
         public event EventHandler Clicked;
 
@@ -67,7 +67,7 @@ namespace BA_Mobile.GoogleMaps
         {
         }
 
-        internal bool SendTap()
+        public bool SendTap()
         {
             EventHandler handler = Clicked;
             if (handler == null)
@@ -77,7 +77,7 @@ namespace BA_Mobile.GoogleMaps
             return true;
         }
 
-        internal void SetOnPositionsChanged(Action<Polygon, NotifyCollectionChangedEventArgs> handler)
+        public void SetOnPositionsChanged(Action<Polygon, NotifyCollectionChangedEventArgs> handler)
         {
             _positionsChangedHandler = handler;
             if (handler != null)
@@ -90,7 +90,7 @@ namespace BA_Mobile.GoogleMaps
             }
         }
 
-        internal void SetOnHolesChanged(Action<Polygon, NotifyCollectionChangedEventArgs> handler)
+        public void SetOnHolesChanged(Action<Polygon, NotifyCollectionChangedEventArgs> handler)
         {
             _holesChangedHandler = handler;
             if (handler != null)

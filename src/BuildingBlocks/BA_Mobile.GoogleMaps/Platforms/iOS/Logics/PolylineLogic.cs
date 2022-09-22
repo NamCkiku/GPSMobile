@@ -5,11 +5,11 @@ using NativePolyline = Google.Maps.Polyline;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal class PolylineLogic : DefaultPolylineLogic<NativePolyline, MapView>
+    public class PolylineLogic : DefaultPolylineLogic<NativePolyline, MapView>
     {
         protected override IList<Polyline> GetItems(Map map) => map.Polylines;
 
-        internal override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap,oldMap, newNativeMap, newMap, handler);
 
@@ -19,7 +19,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             }
         }
 
-        internal override void Unregister(MapView nativeMap, Map map)
+        public override void Unregister(MapView nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -67,22 +67,22 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             targetOuterItem?.SendTap();
         }
 
-        internal override void OnUpdateIsClickable(Polyline outerItem, NativePolyline nativeItem)
+        public override void OnUpdateIsClickable(Polyline outerItem, NativePolyline nativeItem)
         {
             nativeItem.Tappable = outerItem.IsClickable;
         }
 
-        internal override void OnUpdateStrokeColor(Polyline outerItem, NativePolyline nativeItem)
+        public override void OnUpdateStrokeColor(Polyline outerItem, NativePolyline nativeItem)
         {
             nativeItem.StrokeColor = outerItem.StrokeColor.ToPlatform();
         }
 
-        internal override void OnUpdateStrokeWidth(Polyline outerItem, NativePolyline nativeItem)
+        public override void OnUpdateStrokeWidth(Polyline outerItem, NativePolyline nativeItem)
         {
             nativeItem.StrokeWidth = outerItem.StrokeWidth;
         }
 
-        internal override void OnUpdateZIndex(Polyline outerItem, NativePolyline nativeItem)
+        public override void OnUpdateZIndex(Polyline outerItem, NativePolyline nativeItem)
         {
             nativeItem.ZIndex = outerItem.ZIndex;
         }

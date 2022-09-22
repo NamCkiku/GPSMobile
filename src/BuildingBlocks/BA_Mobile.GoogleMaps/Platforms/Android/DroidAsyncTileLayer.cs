@@ -3,7 +3,7 @@ using INativeTileProvider = Android.Gms.Maps.Model.ITileProvider;
 
 namespace BA_Mobile.GoogleMaps.Android
 {
-    internal class DroidAsyncTileLayer : Java.Lang.Object, INativeTileProvider
+    public class DroidAsyncTileLayer : Java.Lang.Object, INativeTileProvider
     {
         private readonly Func<int, int, int, Task<byte[]>> _tileImageAsync;
         private readonly int _tileSize;

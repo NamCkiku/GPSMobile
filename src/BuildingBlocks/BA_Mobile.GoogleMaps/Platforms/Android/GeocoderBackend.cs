@@ -3,7 +3,7 @@ using AGeocoder = Android.Locations.Geocoder;
 
 namespace BA_Mobile.GoogleMaps.Android
 {
-    internal class GeocoderBackend
+    public class GeocoderBackend
     {
         private static Context _context;
 

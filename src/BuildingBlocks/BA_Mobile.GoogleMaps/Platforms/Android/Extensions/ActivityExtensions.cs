@@ -3,7 +3,7 @@ using Android.Util;
 
 namespace BA_Mobile.GoogleMaps.Android.Extensions
 {
-    internal static class ActivityExtensions
+    public static class ActivityExtensions
     {
         public static float GetScaledDensity(this Activity self) 
         {

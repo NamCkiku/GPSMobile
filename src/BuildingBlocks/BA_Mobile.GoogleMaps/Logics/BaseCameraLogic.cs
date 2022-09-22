@@ -2,12 +2,12 @@
 
 namespace BA_Mobile.GoogleMaps.Logics
 {
-    internal abstract class BaseCameraLogic<TNativeMap> : IMapRequestDelegate where TNativeMap:class
+    public abstract class BaseCameraLogic<TNativeMap> : IMapRequestDelegate where TNativeMap : class
     {
         protected Map _map;
         protected TNativeMap _nativeMap;
 
-        public float ScaledDensity { get; internal set; }
+        public float ScaledDensity { get; set; }
 
         public virtual void Register(Map map, TNativeMap nativeMap)
         {
@@ -40,7 +40,9 @@ namespace BA_Mobile.GoogleMaps.Logics
         }
 
         public abstract void OnMoveToRegionRequest(MoveToRegionMessage m);
+
         public abstract void OnMoveCameraRequest(CameraUpdateMessage m);
+
         public abstract void OnAnimateCameraRequest(CameraUpdateMessage m);
     }
 }

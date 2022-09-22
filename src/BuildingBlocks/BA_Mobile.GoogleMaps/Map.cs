@@ -1,9 +1,9 @@
+using BA_Mobile.GoogleMaps.Extensions;
+using BA_Mobile.GoogleMaps.Helpers;
+using BA_Mobile.GoogleMaps.Internals;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using BA_Mobile.GoogleMaps.Internals;
-using BA_Mobile.GoogleMaps.Helpers;
-using BA_Mobile.GoogleMaps.Extensions;
 using System.ComponentModel;
 
 namespace BA_Mobile.GoogleMaps
@@ -32,7 +32,7 @@ namespace BA_Mobile.GoogleMaps
 
         public static readonly BindableProperty HasRotationEnabledProperty = BindableProperty.Create(nameof(HasRotationEnabled), typeof(bool), typeof(Map), true);
 #pragma warning restore CS0618 // Type or member is obsolete
-        
+
         public static readonly BindableProperty SelectedPinProperty = BindableProperty.Create(nameof(SelectedPin), typeof(Pin), typeof(Map), default(Pin), defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly BindableProperty IsTrafficEnabledProperty = BindableProperty.Create(nameof(IsTrafficEnabled), typeof(bool), typeof(Map), false);
@@ -42,14 +42,14 @@ namespace BA_Mobile.GoogleMaps
         public static readonly BindableProperty InitialCameraUpdateProperty = BindableProperty.Create(
             nameof(InitialCameraUpdate), typeof(CameraUpdate), typeof(Map),
             CameraUpdateFactory.NewPositionZoom(new Position(41.89, 12.49), 10),  // center on Rome by default
-            propertyChanged: (bindable, oldValue, newValue) => 
+            propertyChanged: (bindable, oldValue, newValue) =>
             {
-                ((Map)bindable)._useMoveToRegisonAsInitialBounds = false;   
+                ((Map)bindable)._useMoveToRegisonAsInitialBounds = false;
             });
 
         public static readonly BindableProperty PaddingProperty = BindableProperty.Create(nameof(PaddingProperty), typeof(Thickness), typeof(Map), default(Thickness));
 
-        bool _useMoveToRegisonAsInitialBounds = true;
+        private bool _useMoveToRegisonAsInitialBounds = true;
 
         public static readonly BindableProperty CameraPositionProperty = BindableProperty.Create(
             nameof(CameraPosition), typeof(CameraPosition), typeof(Map),
@@ -58,45 +58,55 @@ namespace BA_Mobile.GoogleMaps
 
         public static readonly BindableProperty MapStyleProperty = BindableProperty.Create(nameof(MapStyle), typeof(MapStyle), typeof(Map), null);
 
-        readonly ObservableCollection<Pin> _pins = new ObservableCollection<Pin>();
-        readonly ObservableCollection<Polyline> _polylines = new ObservableCollection<Polyline>();
-        readonly ObservableCollection<Polygon> _polygons = new ObservableCollection<Polygon>();
-        readonly ObservableCollection<Circle> _circles = new ObservableCollection<Circle>();
-        readonly ObservableCollection<TileLayer> _tileLayers = new ObservableCollection<TileLayer>();
-        readonly ObservableCollection<GroundOverlay> _groundOverlays = new ObservableCollection<GroundOverlay>();
+        private readonly ObservableCollection<Pin> _pins = new ObservableCollection<Pin>();
+        private readonly ObservableCollection<Polyline> _polylines = new ObservableCollection<Polyline>();
+        private readonly ObservableCollection<Polygon> _polygons = new ObservableCollection<Polygon>();
+        private readonly ObservableCollection<Circle> _circles = new ObservableCollection<Circle>();
+        private readonly ObservableCollection<TileLayer> _tileLayers = new ObservableCollection<TileLayer>();
+        private readonly ObservableCollection<GroundOverlay> _groundOverlays = new ObservableCollection<GroundOverlay>();
 
         public event EventHandler<PinClickedEventArgs> PinClicked;
+
         public event EventHandler<SelectedPinChangedEventArgs> SelectedPinChanged;
+
         public event EventHandler<InfoWindowClickedEventArgs> InfoWindowClicked;
+
         public event EventHandler<InfoWindowLongClickedEventArgs> InfoWindowLongClicked;
 
         public event EventHandler<PinDragEventArgs> PinDragStart;
+
         public event EventHandler<PinDragEventArgs> PinDragEnd;
+
         public event EventHandler<PinDragEventArgs> PinDragging;
 
         public event EventHandler<MapClickedEventArgs> MapClicked;
+
         public event EventHandler<MapLongClickedEventArgs> MapLongClicked;
+
         public event EventHandler<MyLocationButtonClickedEventArgs> MyLocationButtonClicked;
 
         [Obsolete("Please use Map.CameraIdled instead of this")]
         public event EventHandler<CameraChangedEventArgs> CameraChanged;
+
         public event EventHandler<CameraMoveStartedEventArgs> CameraMoveStarted;
+
         public event EventHandler<CameraMovingEventArgs> CameraMoving;
+
         public event EventHandler<CameraIdledEventArgs> CameraIdled;
 
-        internal Action<MoveToRegionMessage> OnMoveToRegion { get; set; }
+        public Action<MoveToRegionMessage> OnMoveToRegion { get; set; }
 
-        internal Action<CameraUpdateMessage> OnMoveCamera { get; set; }
+        public Action<CameraUpdateMessage> OnMoveCamera { get; set; }
 
-        internal Action<CameraUpdateMessage> OnAnimateCamera { get; set; }
+        public Action<CameraUpdateMessage> OnAnimateCamera { get; set; }
 
-        internal Action<TakeSnapshotMessage> OnSnapshot{ get; set; }
+        public Action<TakeSnapshotMessage> OnSnapshot { get; set; }
 
-        internal Func<Point, Position> OnFromScreenLocation { get; set; }
-        internal Func<Position, Point> OnToScreenLocation { get; set; }
+        public Func<Point, Position> OnFromScreenLocation { get; set; }
+        public Func<Position, Point> OnToScreenLocation { get; set; }
 
-        MapSpan _visibleRegion;
-        MapRegion _region;
+        private MapSpan _visibleRegion;
+        private MapRegion _region;
 
         //// Simone Marra
         //public static Position _TopLeft = new Position();
@@ -146,8 +156,8 @@ namespace BA_Mobile.GoogleMaps
 
         public bool IsIndoorEnabled
         {
-            get { return (bool) GetValue(IsIndoorEnabledProperty); }
-            set { SetValue(IsIndoorEnabledProperty, value);}
+            get { return (bool)GetValue(IsIndoorEnabledProperty); }
+            set { SetValue(IsIndoorEnabledProperty, value); }
         }
 
         [Obsolete("Please use Map.MyLocationEnabled and Map.UiSettings.MyLocationButtonEnabled instead of this")]
@@ -185,7 +195,7 @@ namespace BA_Mobile.GoogleMaps
         public CameraPosition CameraPosition
         {
             get { return (CameraPosition)GetValue(CameraPositionProperty); }
-            internal set { SetValue(CameraPositionProperty, value); }
+            set { SetValue(CameraPositionProperty, value); }
         }
 
         public Thickness Padding
@@ -252,7 +262,7 @@ namespace BA_Mobile.GoogleMaps
         public MapSpan VisibleRegion
         {
             get { return _visibleRegion; }
-            internal set
+            set
             {
                 if (_visibleRegion == value)
                     return;
@@ -267,7 +277,7 @@ namespace BA_Mobile.GoogleMaps
         public MapRegion Region
         {
             get { return _region; }
-            internal set
+            set
             {
                 if (_region == value)
                     return;
@@ -310,7 +320,7 @@ namespace BA_Mobile.GoogleMaps
             var comp = new TaskCompletionSource<AnimationStatus>();
 
             SendMoveCamera(new CameraUpdateMessage(cameraUpdate, null, new DelegateAnimationCallback(
-                () => comp.SetResult(AnimationStatus.Finished), 
+                () => comp.SetResult(AnimationStatus.Finished),
                 () => comp.SetResult(AnimationStatus.Canceled))));
 
             return comp.Task;
@@ -327,7 +337,6 @@ namespace BA_Mobile.GoogleMaps
             return comp.Task;
         }
 
-
         public Task<Stream> TakeSnapshot()
         {
             var comp = new TaskCompletionSource<Stream>();
@@ -337,119 +346,119 @@ namespace BA_Mobile.GoogleMaps
             return comp.Task;
         }
 
-        void PinsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PinsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null && e.NewItems.Cast<Pin>().Any(pin => pin.Label == null))
                 throw new ArgumentException("Pin must have a Label to be added to a map");
         }
 
-        void PolylinesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PolylinesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null && e.NewItems.Cast<Polyline>().Any(polyline => polyline.Positions.Count < 2))
                 throw new ArgumentException("Polyline must have a 2 positions to be added to a map");
         }
 
-        void PolygonsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PolygonsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null && e.NewItems.Cast<Polygon>().Any(polygon => polygon.Positions.Count < 3))
                 throw new ArgumentException("Polygon must have a 3 positions to be added to a map");
         }
 
-        void CirclesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void CirclesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null && e.NewItems.Cast<Circle>().Any(circle => (
                 circle?.Center == null || circle?.Radius == null || circle.Radius.Meters <= 0f)))
                 throw new ArgumentException("Circle must have a center and radius");
         }
 
-        void TileLayersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void TileLayersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             //if (e.NewItems != null && e.NewItems.Cast<ITileLayer>().Any(tileLayer => (circle.Center == null || circle.Radius == null || circle.Radius.Meters <= 0f)))
             //  throw new ArgumentException("Circle must have a center and radius");
         }
 
-        void GroundOverlays_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void GroundOverlays_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
         }
 
-        internal void SendSelectedPinChanged(Pin selectedPin)
+        public void SendSelectedPinChanged(Pin selectedPin)
         {
             SelectedPinChanged?.Invoke(this, new SelectedPinChangedEventArgs(selectedPin));
         }
 
-        void OnItemTemplateSelectorPropertyChanged()
+        private void OnItemTemplateSelectorPropertyChanged()
         {
             _pins.Clear();
             CreatePinItems();
         }
 
-        internal bool SendPinClicked(Pin pin)
+        public bool SendPinClicked(Pin pin)
         {
             var args = new PinClickedEventArgs(pin);
             PinClicked?.Invoke(this, args);
             return args.Handled;
         }
 
-        internal void SendInfoWindowClicked(Pin pin)
+        public void SendInfoWindowClicked(Pin pin)
         {
             var args = new InfoWindowClickedEventArgs(pin);
             InfoWindowClicked?.Invoke(this, args);
         }
 
-        internal void SendInfoWindowLongClicked(Pin pin)
+        public void SendInfoWindowLongClicked(Pin pin)
         {
             var args = new InfoWindowLongClickedEventArgs(pin);
             InfoWindowLongClicked?.Invoke(this, args);
         }
 
-        internal void SendPinDragStart(Pin pin)
+        public void SendPinDragStart(Pin pin)
         {
             PinDragStart?.Invoke(this, new PinDragEventArgs(pin));
         }
 
-        internal void SendPinDragEnd(Pin pin)
+        public void SendPinDragEnd(Pin pin)
         {
             PinDragEnd?.Invoke(this, new PinDragEventArgs(pin));
         }
 
-        internal void SendPinDragging(Pin pin)
+        public void SendPinDragging(Pin pin)
         {
             PinDragging?.Invoke(this, new PinDragEventArgs(pin));
         }
 
-        internal void SendMapClicked(Position point)
+        public void SendMapClicked(Position point)
         {
             MapClicked?.Invoke(this, new MapClickedEventArgs(point));
         }
 
-        internal void SendMapLongClicked(Position point)
+        public void SendMapLongClicked(Position point)
         {
             MapLongClicked?.Invoke(this, new MapLongClickedEventArgs(point));
         }
 
-        internal bool SendMyLocationClicked()
+        public bool SendMyLocationClicked()
         {
             var args = new MyLocationButtonClickedEventArgs();
             MyLocationButtonClicked?.Invoke(this, args);
             return args.Handled;
         }
 
-        internal void SendCameraChanged(CameraPosition position)
+        public void SendCameraChanged(CameraPosition position)
         {
             CameraChanged?.Invoke(this, new CameraChangedEventArgs(position));
         }
 
-        internal void SendCameraMoveStarted(bool isGesture)
+        public void SendCameraMoveStarted(bool isGesture)
         {
             CameraMoveStarted?.Invoke(this, new CameraMoveStartedEventArgs(isGesture));
         }
 
-        internal void SendCameraMoving(CameraPosition position)
+        public void SendCameraMoving(CameraPosition position)
         {
             CameraMoving?.Invoke(this, new CameraMovingEventArgs(position));
         }
 
-        internal void SendCameraIdled(CameraPosition position)
+        public void SendCameraIdled(CameraPosition position)
         {
             CameraIdled?.Invoke(this, new CameraIdledEventArgs(position));
         }
@@ -459,22 +468,22 @@ namespace BA_Mobile.GoogleMaps
             OnMoveToRegion?.Invoke(message);
         }
 
-        void SendMoveCamera(CameraUpdateMessage message)
+        private void SendMoveCamera(CameraUpdateMessage message)
         {
             OnMoveCamera?.Invoke(message);
         }
-    
-        void SendAnimateCamera(CameraUpdateMessage message)
+
+        private void SendAnimateCamera(CameraUpdateMessage message)
         {
             OnAnimateCamera?.Invoke(message);
         }
 
-        void SendTakeSnapshot(TakeSnapshotMessage message)
+        private void SendTakeSnapshot(TakeSnapshotMessage message)
         {
             OnSnapshot?.Invoke(message);
         }
 
-        void OnItemsSourcePropertyChanged(IEnumerable oldItemsSource, IEnumerable newItemsSource)
+        private void OnItemsSourcePropertyChanged(IEnumerable oldItemsSource, IEnumerable newItemsSource)
         {
             if (oldItemsSource is INotifyCollectionChanged ncc)
             {
@@ -490,7 +499,7 @@ namespace BA_Mobile.GoogleMaps
             CreatePinItems();
         }
 
-        void OnItemTemplatePropertyChanged(DataTemplate oldItemTemplate, DataTemplate newItemTemplate)
+        private void OnItemTemplatePropertyChanged(DataTemplate oldItemTemplate, DataTemplate newItemTemplate)
         {
             if (newItemTemplate is DataTemplateSelector)
             {
@@ -501,7 +510,7 @@ namespace BA_Mobile.GoogleMaps
             CreatePinItems();
         }
 
-        void OnItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -511,17 +520,20 @@ namespace BA_Mobile.GoogleMaps
                     foreach (object item in e.NewItems)
                         CreatePin(item);
                     break;
+
                 case NotifyCollectionChangedAction.Move:
                     if (e.OldStartingIndex == -1 || e.NewStartingIndex == -1)
                         goto case NotifyCollectionChangedAction.Reset;
                     // Not tracking order
                     break;
+
                 case NotifyCollectionChangedAction.Remove:
                     if (e.OldStartingIndex == -1)
                         goto case NotifyCollectionChangedAction.Reset;
                     foreach (object item in e.OldItems)
                         RemovePin(item);
                     break;
+
                 case NotifyCollectionChangedAction.Replace:
                     if (e.OldStartingIndex == -1)
                         goto case NotifyCollectionChangedAction.Reset;
@@ -530,13 +542,14 @@ namespace BA_Mobile.GoogleMaps
                     foreach (object item in e.NewItems)
                         CreatePin(item);
                     break;
+
                 case NotifyCollectionChangedAction.Reset:
                     _pins.Clear();
                     break;
             }
         }
 
-        void CreatePinItems()
+        private void CreatePinItems()
         {
             if (ItemsSource == null || (ItemTemplate == null && ItemTemplateSelector == null))
             {
@@ -549,7 +562,7 @@ namespace BA_Mobile.GoogleMaps
             }
         }
 
-        void CreatePin(object newItem)
+        private void CreatePin(object newItem)
         {
             DataTemplate itemTemplate = ItemTemplate;
             if (itemTemplate == null)
@@ -563,7 +576,7 @@ namespace BA_Mobile.GoogleMaps
             _pins.Add(pin);
         }
 
-        void RemovePin(object itemToRemove)
+        private void RemovePin(object itemToRemove)
         {
             Pin pinToRemove = _pins.FirstOrDefault(pin => pin.BindingContext?.Equals(itemToRemove) == true);
             if (pinToRemove != null)
@@ -591,6 +604,5 @@ namespace BA_Mobile.GoogleMaps
 
             return OnToScreenLocation.Invoke(position);
         }
-
     }
 }

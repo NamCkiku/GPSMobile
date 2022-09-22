@@ -2,7 +2,7 @@
 
 namespace BA_Mobile.GoogleMaps.Android
 {
-    internal class DroidUrlTileLayer : UrlTileProvider
+    public class DroidUrlTileLayer : UrlTileProvider
     {
         private readonly Func<int, int, int, Uri> _makeTileUri;
 

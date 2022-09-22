@@ -5,7 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         public bool Handled { get; set; } = false;
 
-        internal MyLocationButtonClickedEventArgs()
+        public MyLocationButtonClickedEventArgs()
         {
         }
     }

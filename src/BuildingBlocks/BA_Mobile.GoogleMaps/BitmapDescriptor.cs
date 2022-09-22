@@ -15,7 +15,7 @@ namespace BA_Mobile.GoogleMaps
         {
         }
 
-        internal static BitmapDescriptor DefaultMarker(Color color, string id)
+        public static BitmapDescriptor DefaultMarker(Color color, string id)
         {
             return new BitmapDescriptor()
             {
@@ -25,7 +25,7 @@ namespace BA_Mobile.GoogleMaps
             };
         }
 
-        internal static BitmapDescriptor FromBundle(string bundleName, string id)
+        public static BitmapDescriptor FromBundle(string bundleName, string id)
         {
             return new BitmapDescriptor()
             {
@@ -35,7 +35,7 @@ namespace BA_Mobile.GoogleMaps
             };
         }
 
-        internal static BitmapDescriptor FromStream(Stream stream, string id)
+        public static BitmapDescriptor FromStream(Stream stream, string id)
         {
             return new BitmapDescriptor()
             {
@@ -45,7 +45,7 @@ namespace BA_Mobile.GoogleMaps
             };
         }
 
-        internal static BitmapDescriptor FromPath(string absolutePath, string id)
+        public static BitmapDescriptor FromPath(string absolutePath, string id)
         {
             return new BitmapDescriptor()
             {
@@ -55,7 +55,7 @@ namespace BA_Mobile.GoogleMaps
             };
         }
 
-        internal static BitmapDescriptor FromView(View view, string id)
+        public static BitmapDescriptor FromView(View view, string id)
         {
             return new BitmapDescriptor()
             {

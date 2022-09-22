@@ -3,7 +3,7 @@ using UIKit;
 
 namespace BA_Mobile.GoogleMaps.iOS.Extensions
 {
-    internal static class ThicknessExtension
+    public static class ThicknessExtension
     {
         public static UIEdgeInsets ToUIEdgeInsets(this Thickness self)
         {

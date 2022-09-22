@@ -6,7 +6,7 @@ using BA_Mobile.GoogleMaps.iOS.Factories;
 
 namespace BA_Mobile.GoogleMaps.Logics.iOS
 {
-    internal class PinLogic : DefaultPinLogic<Marker, MapView>
+    public class PinLogic : DefaultPinLogic<Marker, MapView>
     {
         protected override IList<Pin> GetItems(Map map) => map.Pins;
 
@@ -34,7 +34,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             _onMarkerDeleted = onMarkerDeleted;
         }
 
-        internal override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
+        public override void Register(MapView oldNativeMap, Map oldMap, MapView newNativeMap, Map newMap, IElementHandler handler)
         {
             base.Register(oldNativeMap, oldMap, newNativeMap, newMap, handler);
 
@@ -51,7 +51,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
 
         }
 
-        internal override void Unregister(MapView nativeMap, Map map)
+        public override void Unregister(MapView nativeMap, Map map)
         {
             if (nativeMap != null)
             {
@@ -113,7 +113,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             return nativeMarker;
         }
 
-        internal override void OnMapPropertyChanged(string propertyName)
+        public override void OnMapPropertyChanged(string propertyName)
         {
             if (propertyName == Map.SelectedPinProperty.PropertyName)
             {

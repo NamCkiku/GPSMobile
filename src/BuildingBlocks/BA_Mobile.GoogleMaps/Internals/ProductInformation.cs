@@ -1,7 +1,7 @@
 ﻿
 namespace BA_Mobile.GoogleMaps.Internals
 {
-    internal class ProductInformation
+    public class ProductInformation
     {
         public const string Author = "amay077";
         public const string Name = "Xamarin.Forms.GoogleMaps";
