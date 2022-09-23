@@ -119,6 +119,23 @@ namespace BA_Mobile.GoogleMaps
         {
             VerticalOptions = HorizontalOptions = LayoutOptions.Fill;
 
+            ClusterOptions = new ClusterOptions();
+
+            _clusteredPins.CollectionChanged += (sender, args) =>
+            {
+                if (args.OldItems != null)
+                {
+                    foreach (INotifyPropertyChanged item in args.OldItems)
+                        item.PropertyChanged -= MarkerPropertyChanged;
+                }
+
+                if (args.NewItems != null)
+                {
+                    foreach (INotifyPropertyChanged item in args.NewItems)
+                        item.PropertyChanged += MarkerPropertyChanged;
+                }
+            };
+
             _pins.CollectionChanged += PinsOnCollectionChanged;
             _polylines.CollectionChanged += PolylinesOnCollectionChanged;
             _polygons.CollectionChanged += PolygonsOnCollectionChanged;

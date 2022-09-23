@@ -121,14 +121,14 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
             {
                 NativeMap.InvokeOnMainThread(() =>
                 {
-                    var iconView = outerItem.Icon.View;
-                    var nativeView = Utils.ConvertMauiToNative(iconView, new CGRect(0, 0, iconView.WidthRequest, iconView.HeightRequest), Handler);
-                    nativeView.BackgroundColor = UIColor.Clear;
-                    //nativeItem.GroundAnchor = new CGPoint(iconView.AnchorX, iconView.AnchorY);
-                    nativeItem.Icon = Utils.ConvertViewToImage(nativeView);
+                    //var iconView = outerItem.Icon.View;
+                    //var nativeView = Utils.ConvertMauiToNative(iconView, new CGRect(0, 0, iconView.WidthRequest, iconView.HeightRequest), Handler);
+                    //nativeView.BackgroundColor = UIColor.Clear;
+                    ////nativeItem.GroundAnchor = new CGPoint(iconView.AnchorX, iconView.AnchorY);
+                    //nativeItem.Icon = Utils.ConvertViewToImage(iconView, Handler);
 
-                    // Would have been way cooler to do this instead, but surprisingly, we can't do this on Android:
-                    // nativeItem.IconView = nativeView;
+                    //// Would have been way cooler to do this instead, but surprisingly, we can't do this on Android:
+                    //// nativeItem.IconView = nativeView;
                 });
             }
         }

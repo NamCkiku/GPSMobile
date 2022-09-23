@@ -1,10 +1,11 @@
-﻿using Android.App;
+﻿using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Gms.Maps.Utils.Clustering;
 using Android.Gms.Maps.Utils.Clustering.View;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using AndroidBitmapDescriptorFactory = Android.Gms.Maps.Model.BitmapDescriptorFactory;
 using NativeBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
 using ShapeDrawable = Android.Graphics.Drawables.ShapeDrawable;
@@ -25,7 +26,7 @@ namespace BA_Mobile.GoogleMaps.Android
  */
         private static int MIN_CLUSTER_SIZE = 4;
 
-        public ClusterRenderer(Activity context,
+        public ClusterRenderer(Context context,
             Map map,
             GoogleMap nativeMap,
             ClusterManager manager)
@@ -157,10 +158,10 @@ namespace BA_Mobile.GoogleMaps.Android
             return cluster.Size / 2;
         }
 
-        //protected override int GetColor(int size)
-        //{
-        //    return map.ClusterOptions.BucketColors[BucketIndexForSize(size)].ToAndroid();
-        //}
+        protected override int GetColor(int size)
+        {
+            return map.ClusterOptions.BucketColors[BucketIndexForSize(size)].ToAndroid();
+        }
 
         private string GetClusterText(ICluster cluster)
         {

@@ -21,10 +21,14 @@
                 Tilt = 60
             -->
             <maps:Map
-                x:Name="map"
+                x:Name="googleMap"
                 Grid.RowSpan="2"
-                InitialCameraUpdate="-23.68, -46.87, 13, 30, 60"
                 VerticalOptions="FillAndExpand" />
+
+            <Button
+                Clicked="Button_Clicked"
+                HeightRequest="50"
+                Text="ClickMe" />
         </Grid>
     </ContentPage.Content>
 

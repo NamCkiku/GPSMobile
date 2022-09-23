@@ -3,8 +3,10 @@ using BA_Mobile.GoogleMaps.iOS;
 using BA_Mobile.GoogleMaps.iOS.Extensions;
 using BA_Mobile.GoogleMaps.Logics;
 using BA_Mobile.GoogleMaps.Logics.iOS;
+using BA_Mobile.GoogleMaps.Platforms.iOS.Logics;
 using Google.Maps;
 using Microsoft.Maui.Handlers;
+using System.ComponentModel;
 using UIKit;
 using GCameraPosition = Google.Maps.CameraPosition;
 
@@ -23,7 +25,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
         readonly UiSettingsLogic _uiSettingsLogic = new();
         CameraLogic _cameraLogic;
-
+        ClusterLogic _clusterLogic;
         private bool _ready;
 
         public IList<BaseLogic<MapView>> Logics { get; set; }
@@ -44,6 +46,19 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 _shouldUpdateRegion = false;
             }
         }
+        
+        public override void UpdateValue(string property)
+        {
+            base.UpdateValue(property);
+            foreach (var logic in Logics)
+            {
+                logic.OnMapPropertyChanged(property);
+            }
+            if (Map.IsUseCluster)
+            {
+                _clusterLogic.OnMapPropertyChanged(property);
+            }
+        }
 
         protected override void ConnectHandler(MapView platformView)
         {
@@ -56,7 +71,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 new TileLayerLogic(),
                 new GroundOverlayLogic(Config.ImageFactory)
             };
-
+            _clusterLogic = new ClusterLogic(Config.ImageFactory);
             _cameraLogic = new CameraLogic(() =>
             {
                 OnCameraPositionChanged(NativeMap.Camera);
@@ -83,6 +98,12 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 logic.RestoreItems();
                 logic.OnMapPropertyChanged(Map.SelectedPinProperty.PropertyName);
             }
+            if (Map.IsUseCluster)
+            {
+                _clusterLogic.Register(null, null, NativeMap, Map,this);
+                _clusterLogic.RestoreItems();
+                _clusterLogic.OnMapPropertyChanged(Map.SelectedPinProperty.PropertyName);
+            }
 
             base.ConnectHandler(platformView);
         }
@@ -96,6 +117,10 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 {
                     logic.Unregister(NativeMap, Map);
                 }
+            }
+            if (Map.IsUseCluster)
+            {
+                _clusterLogic.Unregister(NativeMap, Map);
             }
             _cameraLogic.Unregister();
             _uiSettingsLogic.Unregister();

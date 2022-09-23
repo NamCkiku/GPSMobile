@@ -1,116 +1,113 @@
-//using CoreAnimation;
+using CoreAnimation;
 
-//using CoreGraphics;
+using CoreGraphics;
 
-//using CoreLocation;
+using CoreLocation;
 
-//using Foundation;
+using Foundation;
 
-//using Google.Maps;
-//using Google.Maps.Utility;
+using Google.Maps;
+using Google.Maps.Utils;
 
-//using System;
-//using System.Linq;
+using UIKit;
 
-//using UIKit;
+namespace BA_Mobile.GoogleMaps.iOS
+{
+    public class ClusterRendererHandler : DefaultClusterRenderer
+    {
+        private readonly MapView nativeMap;
+        private const double AnimationDuration = 0.5;
+        private float maxClusterZoom = 20;
+        private readonly nuint minimumClusterSize = 4;
 
-//namespace BA_Mobile.GoogleMaps.iOS
-//{
-//    public class ClusterRendererHandler : GMUDefaultClusterRenderer
-//    {
-//        private readonly MapView nativeMap;
-//        private const double AnimationDuration = 0.5;
-//        private float maxClusterZoom = 20;
-//        private readonly nuint minimumClusterSize = 4;
+        public ClusterRendererHandler(MapView mapView, IClusterIconGenerator iconGenerator)
+            : base(mapView, iconGenerator)
+        {
+            nativeMap = mapView;
+        }
 
-//        public ClusterRendererHandler(MapView mapView, IGMUClusterIconGenerator iconGenerator)
-//            : base(mapView, iconGenerator)
-//        {
-//            nativeMap = mapView;
-//        }
+        public Marker GetMarker(ClusteredMarker clusteredMarker) =>
+            Markers?.FirstOrDefault(m => ReferenceEquals(m.UserData as ClusteredMarker, clusteredMarker));
 
-//        public Marker GetMarker(ClusteredMarker clusteredMarker) =>
-//            Markers?.FirstOrDefault(m => ReferenceEquals(m.UserData as ClusteredMarker, clusteredMarker));
+        public void SetUpdateMarker(ClusteredMarker clusteredMarker)
+        {
+            var marker = GetMarker(clusteredMarker);
+            if (marker == null) return;
+            marker.Icon = clusteredMarker.Icon;
+        }
 
-//        public void SetUpdateMarker(ClusteredMarker clusteredMarker)
-//        {
-//            var marker = GetMarker(clusteredMarker);
-//            if (marker == null) return;
-//            marker.Icon = clusteredMarker.Icon;
-//        }
+        public void SetUpdatePositionMarker(ClusteredMarker clusteredMarker)
+        {
+            var marker = GetMarker(clusteredMarker);
+            if (marker == null) return;
+            marker.Position = new CLLocationCoordinate2D(clusteredMarker.Position.Latitude, clusteredMarker.Position.Longitude);
+        }
 
-//        public void SetUpdatePositionMarker(ClusteredMarker clusteredMarker)
-//        {
-//            var marker = GetMarker(clusteredMarker);
-//            if (marker == null) return;
-//            marker.Position = new CLLocationCoordinate2D(clusteredMarker.Position.Latitude, clusteredMarker.Position.Longitude);
-//        }
+        public void SetUpdateRotationMarker(ClusteredMarker clusteredMarker)
+        {
+            var marker = GetMarker(clusteredMarker);
+            if (marker == null) return;
+            marker.Rotation = clusteredMarker.Rotation;
+        }
 
-//        public void SetUpdateRotationMarker(ClusteredMarker clusteredMarker)
-//        {
-//            var marker = GetMarker(clusteredMarker);
-//            if (marker == null) return;
-//            marker.Rotation = clusteredMarker.Rotation;
-//        }
+        public override bool ShouldRenderAsCluster(ICluster cluster, float zoom)
+        {
+            return cluster.Count >= (minimumClusterSize * 2) && zoom <= maxClusterZoom;
+        }
 
-//        public override bool ShouldRenderAsCluster(ICluster cluster, float zoom)
-//        {
-//            return cluster.Count >= (minimumClusterSize * 2) && zoom <= maxClusterZoom;
-//        }
+        [Export("markerWithPosition:from:userData:clusterIcon:animated:")]
+        public Marker MarkerWithPosition(CLLocationCoordinate2D position, CLLocationCoordinate2D from,
+            NSObject userData, UIImage clusterIcon,
+            bool animated)
+        {
+            var initialPosition = animated ? from : position;
+            var marker = userData is ClusteredMarker ?
+                CreateSinglePin(userData, initialPosition)
+                : CreateGroup(clusterIcon, initialPosition);
 
-//        [Export("markerWithPosition:from:userData:clusterIcon:animated:")]
-//        public Marker MarkerWithPosition(CLLocationCoordinate2D position, CLLocationCoordinate2D from,
-//            NSObject userData, UIImage clusterIcon,
-//            bool animated)
-//        {
-//            var initialPosition = animated ? from : position;
-//            var marker = userData is ClusteredMarker ?
-//                CreateSinglePin(userData, initialPosition)
-//                : CreateGroup(clusterIcon, initialPosition);
+            marker.Position = initialPosition;
+            marker.UserData = userData;
 
-//            marker.Position = initialPosition;
-//            marker.UserData = userData;
+            marker.Map = nativeMap;
 
-//            marker.Map = nativeMap;
+            if (animated)
+                AnimateMarker(position, marker);
+            return marker;
+        }
 
-//            if (animated)
-//                AnimateMarker(position, marker);
-//            return marker;
-//        }
+        private static Marker CreateGroup(UIImage clusterIcon, CLLocationCoordinate2D initialPosition)
+        {
+            var marker = Marker.FromPosition(initialPosition);
+            marker.Icon = clusterIcon;
+            marker.GroundAnchor = new CGPoint(0.5, 0.5);
+            marker.ZIndex = 1;
+            return marker;
+        }
 
-//        private static Marker CreateGroup(UIImage clusterIcon, CLLocationCoordinate2D initialPosition)
-//        {
-//            var marker = Marker.FromPosition(initialPosition);
-//            marker.Icon = clusterIcon;
-//            marker.GroundAnchor = new CGPoint(0.5, 0.5);
-//            marker.ZIndex = 1;
-//            return marker;
-//        }
+        private static Marker CreateSinglePin(NSObject userData, CLLocationCoordinate2D initialPosition)
+        {
+            var clusteredMarker = userData as ClusteredMarker;
+            var marker = Marker.FromPosition(initialPosition);
+            marker.Icon = clusteredMarker.Icon;
+            marker.Title = clusteredMarker.Title;
+            marker.Snippet = clusteredMarker.Snippet;
+            marker.Draggable = clusteredMarker.Draggable;
+            marker.Rotation = clusteredMarker.Rotation;
+            marker.GroundAnchor = clusteredMarker.GroundAnchor;
+            marker.InfoWindowAnchor = clusteredMarker.InfoWindowAnchor;
+            marker.Flat = clusteredMarker.Flat;
+            marker.Opacity = clusteredMarker.Opacity;
+            marker.ZIndex = clusteredMarker.ZIndex;
+            return marker;
+        }
 
-//        private static Marker CreateSinglePin(NSObject userData, CLLocationCoordinate2D initialPosition)
-//        {
-//            var clusteredMarker = userData as ClusteredMarker;
-//            var marker = Marker.FromPosition(initialPosition);
-//            marker.Icon = clusteredMarker.Icon;
-//            marker.Title = clusteredMarker.Title;
-//            marker.Snippet = clusteredMarker.Snippet;
-//            marker.Draggable = clusteredMarker.Draggable;
-//            marker.Rotation = clusteredMarker.Rotation;
-//            marker.GroundAnchor = clusteredMarker.GroundAnchor;
-//            marker.InfoWindowAnchor = clusteredMarker.InfoWindowAnchor;
-//            marker.Flat = clusteredMarker.Flat;
-//            marker.Opacity = clusteredMarker.Opacity;
-//            marker.ZIndex = clusteredMarker.ZIndex;
-//            return marker;
-//        }
-
-//        private static void AnimateMarker(CLLocationCoordinate2D position, Marker marker)
-//        {
-//            CATransaction.Begin();
-//            CATransaction.AnimationDuration = AnimationDuration;
-//            marker.Layer.Latitude = position.Latitude;
-//            marker.Layer.Longitude = position.Longitude;
-//            CATransaction.Commit();
-//        }
-//    }
-//}
+        private static void AnimateMarker(CLLocationCoordinate2D position, Marker marker)
+        {
+            CATransaction.Begin();
+            CATransaction.AnimationDuration = AnimationDuration;
+            marker.Layer.Latitude = position.Latitude;
+            marker.Layer.Longitude = position.Longitude;
+            CATransaction.Commit();
+        }
+    }
+}

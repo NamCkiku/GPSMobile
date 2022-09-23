@@ -155,7 +155,7 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
         {
             // lookup pin
             var targetPin = LookupPin(e.Marker);
-            
+
             if (targetPin != null)
             {
                 Map.SendInfoWindowLongClicked(targetPin);
@@ -284,22 +284,32 @@ namespace BA_Mobile.GoogleMaps.Logics.iOS
         {
             nativeItem.Draggable = outerItem?.IsDraggable ?? false;
         }
-
+        public static Dictionary<string, UIImage> cache = new Dictionary<string, UIImage>();
         protected void OnUpdateIconView(Pin outerItem, Marker nativeItem)
         {
-            if (outerItem?.Icon?.Type == BitmapDescriptorType.View && outerItem?.Icon?.View != null)
+            try
             {
-                NativeMap.InvokeOnMainThread(() =>
+                if (outerItem?.Icon?.Type == BitmapDescriptorType.View && outerItem?.Icon?.View != null)
                 {
-                    var iconView = outerItem.Icon.View;
-                    var nativeView = Utils.ConvertMauiToNative(iconView, new CGRect(0, 0, iconView.WidthRequest, iconView.HeightRequest), Handler);
-                    nativeView.BackgroundColor = UIColor.Clear;
-                    nativeItem.GroundAnchor = new CGPoint(iconView.AnchorX, iconView.AnchorY);
-                    nativeItem.Icon = Utils.ConvertViewToImage(nativeView);
+                    nativeItem.GroundAnchor = new CGPoint(outerItem.Icon.View.AnchorX, outerItem.Icon.View.AnchorY);
+                    var exists = cache.ContainsKey(outerItem.Tag.ToString());
+                    if (exists)
+                    {
+                        nativeItem.Icon = cache[outerItem.Tag.ToString()];
+                    }
+                    else
+                    {
+                        NativeMap.InvokeOnMainThread(() =>
+                        {
+                            nativeItem.Icon = Utils.ConvertViewToImage(outerItem, Handler);
 
-                    // Would have been way cooler to do this instead, but surprisingly, we can't do this on Android:
-                    // nativeItem.IconView = nativeView;
-                });
+                            cache.Add(outerItem.Tag.ToString(), nativeItem.Icon);
+                        });
+                    }
+                }
+            }
+            catch
+            {
             }
         }
 

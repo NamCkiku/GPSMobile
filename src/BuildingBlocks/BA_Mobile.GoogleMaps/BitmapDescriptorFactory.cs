@@ -23,6 +23,11 @@ namespace BA_Mobile.GoogleMaps
             return BitmapDescriptor.FromView(view, id);
         }
 
+        public static BitmapDescriptor FromResource(string bundleName)
+        {
+            return BitmapDescriptor.FromResource(bundleName, bundleName);
+        }
+
         //public static BitmapDescriptor FromPath(string absolutePath)
         //{
         //    return BitmapDescriptor.FromPath(absolutePath);

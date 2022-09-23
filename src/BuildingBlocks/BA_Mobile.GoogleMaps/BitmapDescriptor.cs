@@ -64,6 +64,16 @@ namespace BA_Mobile.GoogleMaps
                 View = view
             };
         }
+
+        public static BitmapDescriptor FromResource(string bundleName, string id)
+        {
+            return new BitmapDescriptor()
+            {
+                Id = id,
+                Type = BitmapDescriptorType.Resource,
+                BundleName = bundleName
+            };
+        }
     }
 }
 

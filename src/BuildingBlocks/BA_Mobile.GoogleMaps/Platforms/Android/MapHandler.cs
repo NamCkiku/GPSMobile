@@ -8,6 +8,7 @@ using BA_Mobile.GoogleMaps.Android.Logics;
 using BA_Mobile.GoogleMaps.Internals;
 using BA_Mobile.GoogleMaps.Logics;
 using BA_Mobile.GoogleMaps.Logics.Android;
+using BA_Mobile.GoogleMaps.Platforms.Android.Logics;
 using Microsoft.Maui.Handlers;
 using Math = System.Math;
 
@@ -20,6 +21,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         readonly OnMyLocationButtonClickListener onMyLocationButtonClickListener = new();
 
         CameraLogic _cameraLogic;
+        ClusterLogic _clusterLogic;
         UiSettingsLogic _uiSettingsLogic = new();
 
         public float ScaledDensity;
@@ -60,16 +62,8 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
         protected override MapView CreatePlatformView()
         {
-            var mapView = new MapView(Context);
-            mapView.OnCreate(s_bundle);
-            mapView.OnResume();
-
-            return mapView;
-        }
-
-        protected override async void ConnectHandler(MapView platformView)
-        {
             _cameraLogic = new CameraLogic(UpdateVisibleRegion);
+            _clusterLogic = new ClusterLogic(Context, Config.BitmapDescriptorFactory);
 
             Logics = new List<BaseLogic<GoogleMap>>
             {
@@ -81,6 +75,17 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 new TileLayerLogic(),
                 new GroundOverlayLogic(Context, Config.BitmapDescriptorFactory)
             };
+
+            var mapView = new MapView(Context);
+            mapView.OnCreate(s_bundle);
+            mapView.OnResume();
+
+            return mapView;
+        }
+
+        protected override async void ConnectHandler(MapView platformView)
+        {
+            
 
             var activity = Platform.CurrentActivity;
 
@@ -101,7 +106,11 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 logic.Register(null, null, NativeMap, Map, this);
                 logic.ScaledDensity = ScaledDensity;
             }
-
+            if (Map.IsUseCluster)
+            {
+                _clusterLogic.Register(null, null, NativeMap, Map, this);
+                _clusterLogic.ScaledDensity = ScaledDensity;
+            }
             OnMapReady();
 
             base.ConnectHandler(platformView);
@@ -191,7 +200,11 @@ namespace BA_Mobile.GoogleMaps.Handlers
                     logic.OnMapPropertyChanged(Map.SelectedPinProperty.PropertyName);
                 }
             }
-
+            if (Map.IsUseCluster)
+            {
+                _clusterLogic.RestoreItems();
+                _clusterLogic.OnMapPropertyChanged(Map.SelectedPinProperty.PropertyName);
+            }
             _ready = false;
             _onLayout = false;
         }
@@ -288,7 +301,10 @@ namespace BA_Mobile.GoogleMaps.Handlers
                 {
                     logic.Unregister(nativeMap, map);
                 }
-
+                if (Map.IsUseCluster)
+                {
+                    _clusterLogic.Unregister(nativeMap, map);
+                }
                 nativeMap.SetOnMapClickListener(null);
                 nativeMap.SetOnMapLongClickListener(null);
                 nativeMap.SetOnMyLocationButtonClickListener(null);

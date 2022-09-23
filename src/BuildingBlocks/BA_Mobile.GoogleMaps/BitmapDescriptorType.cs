@@ -5,6 +5,7 @@ namespace BA_Mobile.GoogleMaps
     {
         Default,
         Bundle,
+        Resource,
         Stream,
         AbsolutePath,
         View,
