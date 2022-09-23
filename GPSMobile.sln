@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F6222305-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{F9E95513-2524-461F-BC0C-8A3F8A7EA53C}"
 	ProjectSection(SolutionItems) = preProject
+		src\BuildingBlocks\Library\Google.Maps.Utils.Android.dll = src\BuildingBlocks\Library\Google.Maps.Utils.Android.dll
 		src\BuildingBlocks\Library\Google.Maps.Utils.iOS.dll = src\BuildingBlocks\Library\Google.Maps.Utils.iOS.dll
 	EndProjectSection
 EndProject
