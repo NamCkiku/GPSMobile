@@ -1,9 +1,9 @@
-using Android.Gms.Maps.Model;
+using Android.Content;
 using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
+using Android.Widget;
 using BA_Mobile.GoogleMaps.Android;
 using BA_Mobile.GoogleMaps.Android.Extensions;
-using Android.Widget;
-using Android.Content;
 using BA_Mobile.GoogleMaps.Android.Factories;
 
 namespace BA_Mobile.GoogleMaps.Logics.Android
@@ -27,7 +27,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             Context context,
             IBitmapDescriptorFactory bitmapDescriptorFactory,
             Action<Pin, MarkerOptions> onMarkerCreating,
-            Action<Pin, Marker> onMarkerCreated, 
+            Action<Pin, Marker> onMarkerCreated,
             Action<Pin, Marker> onMarkerDeleting,
             Action<Pin, Marker> onMarkerDeleted)
         {
@@ -77,7 +77,6 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
                 .SetPosition(new LatLng(outerItem.Position.Latitude, outerItem.Position.Longitude))
                 .SetTitle(outerItem.Label)
                 .SetSnippet(outerItem.Address)
-                .SetSnippet(outerItem.Address)
                 .Draggable(outerItem.IsDraggable)
                 .SetRotation(outerItem.Rotation)
                 .Anchor((float)outerItem.Anchor.X, (float)outerItem.Anchor.Y)
@@ -95,6 +94,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             _onMarkerCreating(outerItem, opts);
 
             var marker = NativeMap.AddMarker(opts);
+            marker.Tag = outerItem.Tag.ToString();
             // If the pin has an IconView set this method will convert it into an icon for the marker
             if (outerItem?.Icon?.Type == BitmapDescriptorType.View)
             {
@@ -130,7 +130,9 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
 
         Pin LookupPin(Marker marker)
         {
-            return GetItems(Map).FirstOrDefault(outerItem => ((Marker)outerItem.NativeObject).Id == marker.Id);
+            if (marker != null)
+                return GetItems(Map).FirstOrDefault(outerItem => ((Marker)outerItem.NativeObject).Id == marker.Id);
+            return null;
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
@@ -259,7 +261,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             else
             {
                 // lookup pin
-                if (pin.NativeObject is Marker marker) 
+                if (pin.NativeObject is Marker marker)
                 {
                     var targetPin = LookupPin(marker);
                     (targetPin?.NativeObject as Marker)?.ShowInfoWindow();
@@ -313,23 +315,42 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
             }
         }
 
+        public static Dictionary<string, global::Android.Gms.Maps.Model.BitmapDescriptor> cache = new Dictionary<string, global::Android.Gms.Maps.Model.BitmapDescriptor>();
+
         private async void TransformMauiViewToAndroidBitmap(Pin outerItem, Marker nativeItem)
         {
-            if (outerItem?.Icon?.Type == BitmapDescriptorType.View && outerItem.Icon?.View != null)
+            try
             {
-                var iconView = outerItem.Icon.View;
-                var nativeView = await Utils.ConvertMauiToNative(iconView, Handler);
-                var otherView = new FrameLayout(nativeView.Context);
-                nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest), Utils.DpToPx((float)iconView.HeightRequest));
-                otherView.AddView(nativeView);
-
-                var icon = await Utils.ConvertViewToBitmapDescriptor(otherView);
-                if (outerItem.NativeObject != null)
+                if (outerItem?.Icon?.Type == BitmapDescriptorType.View && outerItem.Icon?.View != null)
                 {
-                    nativeItem.SetIcon(icon);
+                    var iconView = outerItem.Icon.View;
+                    var exists = cache.ContainsKey(outerItem.Tag.ToString());
+                    if (exists)
+                    {
+                        nativeItem.SetIcon(cache[outerItem.Tag.ToString()]);
+                    }
+                    else
+                    {
+                        var nativeView = await Utils.ConvertMauiToNative(iconView, Handler);
+                        var otherView = new FrameLayout(nativeView.Context);
+                        nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest), Utils.DpToPx((float)iconView.HeightRequest));
+                        otherView.AddView(nativeView);
+
+                        var icon = await Utils.ConvertViewToBitmapDescriptor(otherView);
+                        if (outerItem.NativeObject != null)
+                        {
+                            nativeItem.SetIcon(icon);
+                            nativeItem.SetAnchor((float)iconView.AnchorX, (float)iconView.AnchorY);
+                            nativeItem.Visible = true;
+                        }
+                        cache.Add(outerItem.Tag.ToString(), icon);
+                    }
                     nativeItem.SetAnchor((float)iconView.AnchorX, (float)iconView.AnchorY);
                     nativeItem.Visible = true;
                 }
+            }
+            catch
+            {
             }
         }
 
@@ -365,7 +386,7 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
 
         protected override void OnUpdateInfoWindowAnchor(Pin outerItem, Marker nativeItem)
         {
-            nativeItem.SetInfoWindowAnchor((float) outerItem.InfoWindowAnchor.X, (float) outerItem.InfoWindowAnchor.Y);
+            nativeItem.SetInfoWindowAnchor((float)outerItem.InfoWindowAnchor.X, (float)outerItem.InfoWindowAnchor.Y);
         }
 
         protected override void OnUpdateZIndex(Pin outerItem, Marker nativeItem)
@@ -379,4 +400,3 @@ namespace BA_Mobile.GoogleMaps.Logics.Android
         }
     }
 }
-

@@ -1,4 +1,5 @@
-﻿
+﻿using BA_Mobile.GoogleMaps.Helpers;
+
 namespace BA_Mobile.GoogleMaps
 {
     public class Pin : BindableObject
@@ -28,6 +29,13 @@ namespace BA_Mobile.GoogleMaps
         public static readonly BindableProperty ZIndexProperty = BindableProperty.Create(nameof(ZIndex), typeof(int), typeof(Pin), 0);
 
         public static readonly BindableProperty TransparencyProperty = BindableProperty.Create(nameof(Transparency), typeof(float), typeof(Pin), 0f);
+
+        public Pin()
+        {
+            view = new StackLayout();
+        }
+
+        private View view;
 
         public string Label
         {
@@ -91,8 +99,8 @@ namespace BA_Mobile.GoogleMaps
 
         public Point InfoWindowAnchor
         {
-            get { return (Point) GetValue(InfoWindowAnchorProperty); }
-            set { SetValue(InfoWindowAnchorProperty, value);}
+            get { return (Point)GetValue(InfoWindowAnchorProperty); }
+            set { SetValue(InfoWindowAnchorProperty, value); }
         }
 
         public int ZIndex
@@ -110,6 +118,8 @@ namespace BA_Mobile.GoogleMaps
         public object Tag { get; set; }
 
         public object NativeObject { get; set; }
+
+        public bool IsRunning { get; set; }
 
         [Obsolete("Please use Map.PinClicked instead of this")]
         public event EventHandler Clicked;
@@ -157,9 +167,74 @@ namespace BA_Mobile.GoogleMaps
             return true;
         }
 
-        bool Equals(Pin other)
+        private bool Equals(Pin other)
         {
             return string.Equals(Label, other.Label) && Equals(Position, other.Position) && Type == other.Type && string.Equals(Address, other.Address);
+        }
+
+        public void Rotate(double latitude,
+   double longitude,
+   Action callback)
+        {
+            // * tính góc quay giữa 2 điểm location
+            var angle = GeoHelper.ComputeHeading(this.Position.Latitude, this.Position.Longitude, latitude, longitude);
+            if (angle == 0)
+            {
+                callback();
+                return;
+            }
+            var startRotaion = this.Rotation;
+            //tính lại độ lệch góc
+            var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
+            void callbackanimate(double input)
+            {
+                var fractionAngle = GeoHelper.ComputeRotation(
+                                     input,
+                                      startRotaion,
+                                      deltaAngle);
+
+                this.Rotation = (float)fractionAngle;
+            }
+            view.Animate(
+                "rotateCar",
+                animation: new Animation(callbackanimate),
+                length: 250,
+                finished: (val, b) =>
+                {
+                    callback();
+                }
+                );
+        }
+
+        public void MarkerAnimation(Pin itemplate, double latitude, double longitude, Action callback)
+        {
+            if (this.IsRunning)
+            {
+                callback();
+            }
+            else
+            {
+                var startPosition = new Position(this.Position.Latitude, this.Position.Longitude);
+                var finalPosition = new Position(latitude, longitude);
+                void callbackanimate(double input)
+                {
+                    var postionnew = GeoHelper.LinearInterpolator(input,
+                        startPosition,
+                        finalPosition);
+                    itemplate.Position = postionnew;
+                    this.Position = postionnew;
+                }
+                view.Animate(
+                "moveCar",
+                animation: new Animation(callbackanimate),
+                length: 4000,
+                finished: (val, b) =>
+                {
+                    IsRunning = false;
+                    callback();
+                }
+                );
+            }
         }
     }
 }

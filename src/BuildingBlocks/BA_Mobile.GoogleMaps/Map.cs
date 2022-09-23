@@ -604,5 +604,73 @@ namespace BA_Mobile.GoogleMaps
 
             return OnToScreenLocation.Invoke(position);
         }
+
+        #region Cluster
+
+        public static readonly BindableProperty ClusterOptionsProperty = BindableProperty.Create(nameof(ClusterOptionsProperty),
+           typeof(ClusterOptions),
+           typeof(Map),
+           default(ClusterOptions));
+
+        public event EventHandler<ClusterClickedEventArgs> ClusterClicked;
+
+        private readonly ObservableCollection<Pin> _clusteredPins = new ObservableCollection<Pin>();
+
+        public static readonly BindableProperty IsUseClusterProperty = BindableProperty.Create(nameof(IsUseClusterProperty),
+         typeof(bool),
+         typeof(Map),
+         default(bool));
+
+        private void MarkerPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != Pin.PositionProperty.PropertyName)
+                OnMarkerUpdate?.Invoke((Pin)sender);
+        }
+
+        public bool IsUseCluster
+        {
+            get { return (bool)GetValue(IsUseClusterProperty); }
+            set { SetValue(IsUseClusterProperty, value); }
+        }
+
+        public Action OnCluster { get; set; }
+
+        public Action<Pin> OnMarkerUpdate { get; set; }
+
+        public bool PendingClusterRequest { get; set; }
+
+        public ClusterOptions ClusterOptions
+        {
+            get => (ClusterOptions)GetValue(ClusterOptionsProperty);
+            set => SetValue(ClusterOptionsProperty, value);
+        }
+
+        public void Cluster()
+        {
+            SendCluster();
+        }
+
+        public IList<Pin> ClusteredPins => _clusteredPins;
+
+        private void SendCluster()
+        {
+            if (OnCluster != null)
+            {
+                OnCluster.Invoke();
+            }
+            else
+            {
+                PendingClusterRequest = true;
+            }
+        }
+
+        public bool SendClusterClicked(int itemsCount, IEnumerable<Pin> pins, Position position)
+        {
+            var args = new ClusterClickedEventArgs(itemsCount, pins, position);
+            ClusterClicked?.Invoke(this, args);
+            return args.Handled;
+        }
+
+        #endregion Cluster
     }
 }

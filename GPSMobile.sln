@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F6222305-E0CC-4F64-B6BA-DFA67A58FB29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{F9E95513-2524-461F-BC0C-8A3F8A7EA53C}"
+	ProjectSection(SolutionItems) = preProject
+		src\BuildingBlocks\Library\Google.Maps.Utils.iOS.dll = src\BuildingBlocks\Library\Google.Maps.Utils.iOS.dll
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{477A142E-89BC-4BE9-AE50-758BFF86953E}"
 EndProject
@@ -49,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Entities", "src\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Core", "src\ApplicationBlocks\GPSMobile.Core\GPSMobile.Core.csproj", "{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_Mobile.GoogleMaps", "src\BuildingBlocks\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj", "{D85A745D-E957-4D5D-A392-DDDBC78880BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.GoogleMaps", "src\BuildingBlocks\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj", "{D85A745D-E957-4D5D-A392-DDDBC78880BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
