@@ -3,33 +3,48 @@
     x:Class="GPSMobile.Core.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:googlemapsBehaviors="clr-namespace:BA_Mobile.GoogleMaps.Behaviors;assembly=BA_Mobile.GoogleMaps"
+    xmlns:local="clr-namespace:GPSMobile.Core.ViewModels"
     xmlns:maps="clr-namespace:BA_Mobile.GoogleMaps;assembly=BA_Mobile.GoogleMaps">
-
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="6*" />
-            </Grid.RowDefinitions>
+        <Grid x:Name="adsada">
+            <maps:Map x:Name="googleMap" MapType="Street">
+                <maps:Map.Behaviors>
+                    <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
+                    <googlemapsBehaviors:PinClickedToCommandBehavior Command="{Binding PinClickedCommand}" />
+                    <googlemapsBehaviors:BindingPolylinesBehavior Value="{Binding Polylines}" />
+                    <googlemapsBehaviors:MoveCameraBehavior Request="{Binding MoveCameraRequest}" />
+                    <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                </maps:Map.Behaviors>
+            </maps:Map>
 
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <Button
+                    Command="{Binding IncreaseSpeedCommand}"
+                    Text="Next"
+                    WidthRequest="80" />
 
-            <!--
-                Initial CameraUpdate
-                Location = Sao Paulo
-                Zoom = 13
-                Rotation = 30
-                Tilt = 60
-            -->
-            <maps:Map
-                x:Name="googleMap"
-                Grid.RowSpan="2"
-                VerticalOptions="FillAndExpand" />
+                <Button
+                    Command="{Binding DecreaseSpeedCommand}"
+                    Text="Pree"
+                    WidthRequest="80" />
 
-            <Button
-                Clicked="Button_Clicked"
-                HeightRequest="50"
-                Text="ClickMe" />
+                <Button
+                    Command="{Binding WatchingCommand}"
+                    Text="Watch"
+                    WidthRequest="80" />
+
+                <Button
+                    Command="{Binding PlayStopCommand}"
+                    Text="Stop"
+                    WidthRequest="80" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>
