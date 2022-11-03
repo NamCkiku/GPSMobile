@@ -3,12 +3,10 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Gms.Maps.Utils.Clustering;
 using Android.Gms.Maps.Utils.Clustering.View;
-using Android.Graphics.Drawables;
-using Android.Graphics.Drawables.Shapes;
+using BA_Mobile.GoogleMaps.Android.Factories;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using AndroidBitmapDescriptorFactory = Android.Gms.Maps.Model.BitmapDescriptorFactory;
+using System.Collections;
 using NativeBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
-using ShapeDrawable = Android.Graphics.Drawables.ShapeDrawable;
 
 namespace BA_Mobile.GoogleMaps.Android
 {
@@ -17,15 +15,7 @@ namespace BA_Mobile.GoogleMaps.Android
         private readonly Map map;
         private readonly Dictionary<string, NativeBitmapDescriptor> disabledBucketsCache;
         private readonly Dictionary<string, NativeBitmapDescriptor> enabledBucketsCache;
-        private Dictionary<int, NativeBitmapDescriptor> mIcons;
-        private IconClusterGenerator mIconGenerator;
-        private ShapeDrawable mColoredCircleBackground;
-
-        /**
- * If cluster size is less than this size, display individual markers.
- */
         private static int MIN_CLUSTER_SIZE = 4;
-
         public ClusterRenderer(Context context,
             Map map,
             GoogleMap nativeMap,
@@ -36,23 +26,11 @@ namespace BA_Mobile.GoogleMaps.Android
             MinClusterSize = map.ClusterOptions.MinimumClusterSize;
             disabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
             enabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
-            mIcons = new Dictionary<int, NativeBitmapDescriptor>();
-            mIconGenerator = new IconClusterGenerator(context);
-            mIconGenerator.SetBackground(makeClusterBackground());
         }
-
         protected override bool ShouldRenderAsCluster(ICluster cluster)
         {
             return cluster.Size > MIN_CLUSTER_SIZE * 2;
         }
-
-        public void SetUpdateMarker(ClusteredMarker clusteredMarker)
-        {
-            var marker = GetMarker(clusteredMarker);
-            if (marker == null) return;
-            marker.SetIcon(clusteredMarker.Icon);
-        }
-
         public void SetUpdatePositionMarker(ClusteredMarker clusteredMarker)
         {
             var marker = GetMarker(clusteredMarker);
@@ -65,6 +43,29 @@ namespace BA_Mobile.GoogleMaps.Android
             var marker = GetMarker(clusteredMarker);
             if (marker == null) return;
             marker.Rotation = clusteredMarker.Rotation;
+        }
+        public void SetUpdateMarker(ClusteredMarker clusteredMarker)
+        {
+            var marker = GetMarker(clusteredMarker);
+            if (marker == null) return;
+            marker.Position = new LatLng(clusteredMarker.Position.Latitude, clusteredMarker.Position.Longitude);
+            marker.Title = clusteredMarker.Title;
+            marker.Snippet = clusteredMarker.Snippet;
+            marker.Draggable = clusteredMarker.Draggable;
+            marker.Rotation = clusteredMarker.Rotation;
+            marker.SetAnchor(clusteredMarker.AnchorX, clusteredMarker.AnchorY);
+            marker.SetInfoWindowAnchor(clusteredMarker.InfoWindowAnchorX, clusteredMarker.InfoWindowAnchorY);
+            marker.Flat = clusteredMarker.Flat;
+            marker.Alpha = clusteredMarker.Alpha;
+            marker.SetIcon(clusteredMarker.Icon);
+        }
+        public override void OnClustersChanged(ICollection clusters)
+        {
+            base.OnClustersChanged(clusters);
+        }
+        protected override bool ShouldRender(ICollection oldClusters, ICollection newClusters)
+        {
+            return base.ShouldRender(oldClusters, newClusters);
         }
 
         protected override void OnBeforeClusterRendered(ICluster cluster, MarkerOptions options)
@@ -89,28 +90,12 @@ namespace BA_Mobile.GoogleMaps.Android
 
         private NativeBitmapDescriptor GetIcon(ICluster cluster, BitmapDescriptor descriptor)
         {
+            var bitmapDescriptorFactory = DefaultBitmapDescriptorFactory.Instance;
             var icon = GetFromIconCache(cluster);
             if (icon == null)
             {
-                try
-                {
-                    int bucket = GetBucket(cluster);
-                    var exists = mIcons.ContainsKey(bucket);
-                    if (exists)
-                    {
-                        icon = mIcons[bucket];
-                    }
-                    else
-                    {
-                        mColoredCircleBackground.Paint.Color = global::Android.Graphics.Color.White;
-                        icon = AndroidBitmapDescriptorFactory.FromBitmap(mIconGenerator.MakeIcon(bucket.ToString()));
-                        mIcons.Add(bucket, icon);
-                    }
-                    AddToIconCache(cluster, icon);
-                }
-                catch (System.Exception)
-                {
-                }
+                icon = bitmapDescriptorFactory.ToNative(descriptor);
+                AddToIconCache(cluster, icon);
             }
             return icon;
         }
@@ -141,9 +126,11 @@ namespace BA_Mobile.GoogleMaps.Android
 
             options.SetTitle(clusteredMarker.Title)
                 .SetSnippet(clusteredMarker.Snippet)
+                .SetSnippet(clusteredMarker.Snippet)
                 .Draggable(clusteredMarker.Draggable)
                 .SetRotation(clusteredMarker.Rotation)
                 .Anchor(clusteredMarker.AnchorX, clusteredMarker.AnchorY)
+                .InfoWindowAnchor(clusteredMarker.InfoWindowAnchorX, clusteredMarker.InfoWindowAnchorY)
                 .SetAlpha(clusteredMarker.Alpha)
                 .Flat(clusteredMarker.Flat);
 
@@ -155,7 +142,10 @@ namespace BA_Mobile.GoogleMaps.Android
 
         protected override int GetBucket(ICluster cluster)
         {
-            return cluster.Size / 2;
+            var size = cluster.Size / 2;
+            if (size <= map.ClusterOptions.Buckets[0])
+                return size;
+            return map.ClusterOptions.Buckets[BucketIndexForSize(size)];
         }
 
         protected override int GetColor(int size)
@@ -189,20 +179,6 @@ namespace BA_Mobile.GoogleMaps.Android
                 ++index;
 
             return (int)index;
-        }
-
-        // TODO: sửa màu vòng bao cluster
-        private LayerDrawable makeClusterBackground()
-        {
-            mColoredCircleBackground = new ShapeDrawable(new OvalShape());
-            ShapeDrawable outline = new ShapeDrawable(new OvalShape());
-            outline.Paint.Color = global::Android.Graphics.Color.Blue;
-            LayerDrawable background = new LayerDrawable(new Drawable[] { outline,
-                mColoredCircleBackground });
-            int strokeWidth = 3;
-            background.SetLayerInset(1, strokeWidth, strokeWidth, strokeWidth,
-                    strokeWidth);
-            return background;
         }
     }
 }

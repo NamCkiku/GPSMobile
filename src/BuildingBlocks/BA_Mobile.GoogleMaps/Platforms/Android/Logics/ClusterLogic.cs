@@ -66,7 +66,7 @@ namespace BA_Mobile.GoogleMaps.Platforms.Android.Logics
             switch (ClusteredMap.ClusterOptions.Algorithm)
             {
                 case ClusterAlgorithm.GridBased:
-                    algorithm = new PreCachingAlgorithmDecorator(new GridBasedAlgorithm());
+                    algorithm = new GridBasedAlgorithm();
                     break;
 
                 case ClusterAlgorithm.VisibleNonHierarchicalDistanceBased:
