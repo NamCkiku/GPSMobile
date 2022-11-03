@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-android</TargetFramework>
+		<SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Transforms\EnumFields.xml" />
+		<None Remove="Transforms\EnumMethods.xml" />
+		<None Remove="Transforms\Metadata.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Xamarin.GooglePlayServices.Maps">
+			<Version>118.1.0</Version>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<LibraryProjectZip Include="Jars\android-maps-utils-2.4.0.aar" />
+	</ItemGroup>
+	<ItemGroup>
+		<JavaSourceJar Include="Jars\android-maps-utils-2.4.0-sources.jar" />
+	</ItemGroup>
+</Project>

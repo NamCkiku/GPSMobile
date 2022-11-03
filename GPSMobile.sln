@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPSMobile.Core", "src\Appli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_Mobile.GoogleMaps", "src\BuildingBlocks\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj", "{D85A745D-E957-4D5D-A392-DDDBC78880BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Maps.Utils.Android", "src\BuildingBlocks\Library\Google.Maps.Utils.Android\Google.Maps.Utils.Android.csproj", "{330BAF98-384A-40B8-9ABE-47EB83C15CA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D85A745D-E957-4D5D-A392-DDDBC78880BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330BAF98-384A-40B8-9ABE-47EB83C15CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330BAF98-384A-40B8-9ABE-47EB83C15CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330BAF98-384A-40B8-9ABE-47EB83C15CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330BAF98-384A-40B8-9ABE-47EB83C15CA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{6647B796-3C6A-42CE-9B23-0C999633042D} = {E9132626-ABF1-4968-852E-FFF3BEC3521C}
 		{D093A49F-B6A4-4FE0-8147-FB7BFA1199DE} = {9BFF82F6-5277-469A-8410-78D3BC6418E1}
 		{D85A745D-E957-4D5D-A392-DDDBC78880BD} = {477A142E-89BC-4BE9-AE50-758BFF86953E}
+		{330BAF98-384A-40B8-9ABE-47EB83C15CA5} = {F9E95513-2524-461F-BC0C-8A3F8A7EA53C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A7A8FB-FDD1-4A63-8196-20F8629D6E23}
