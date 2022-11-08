@@ -85,8 +85,6 @@ namespace BA_Mobile.GoogleMaps.Handlers
 
         protected override async void ConnectHandler(MapView platformView)
         {
-            
-
             var activity = Platform.CurrentActivity;
 
             if (activity != null)
