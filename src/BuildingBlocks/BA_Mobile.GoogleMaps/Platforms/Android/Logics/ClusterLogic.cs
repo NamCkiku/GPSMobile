@@ -91,6 +91,7 @@ namespace BA_Mobile.GoogleMaps.Platforms.Android.Logics
             if (previousCameraPostion == null || Math.Abs(previousCameraPostion.Zoom - NativeMap.CameraPosition.Zoom) > 0.001)
             {
                 previousCameraPostion = NativeMap.CameraPosition;
+                clusterManager.Cluster();
             }
         }
 

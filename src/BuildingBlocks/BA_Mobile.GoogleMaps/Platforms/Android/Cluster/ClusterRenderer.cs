@@ -23,7 +23,7 @@ namespace BA_Mobile.GoogleMaps.Android
         /**
  * If cluster size is less than this size, display individual markers.
  */
-        private static int MIN_CLUSTER_SIZE = 4;
+        private static int MIN_CLUSTER_SIZE = 2;
 
         public ClusterRenderer(Activity context,
             Map map,
