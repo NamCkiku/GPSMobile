@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Gms.Maps.Utils.Clustering;
@@ -18,7 +19,7 @@ namespace BA_Mobile.GoogleMaps.Platforms.Android.Logics
 
         private ClusterManager clusterManager;
         private ClusterLogicHandler clusterHandler;
-        private readonly Context context;
+        private readonly Activity context;
         private readonly IBitmapDescriptorFactory bitmapDescriptorFactory;
 
         private global::Android.Gms.Maps.Model.CameraPosition previousCameraPostion;
@@ -28,7 +29,7 @@ namespace BA_Mobile.GoogleMaps.Platforms.Android.Logics
 
         public Map ClusteredMap => Map;
 
-        public ClusterLogic(Context context, IBitmapDescriptorFactory bitmapDescriptorFactory)
+        public ClusterLogic(Activity context, IBitmapDescriptorFactory bitmapDescriptorFactory)
         {
             this.bitmapDescriptorFactory = bitmapDescriptorFactory;
             this.context = context;

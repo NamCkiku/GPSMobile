@@ -63,7 +63,7 @@ namespace BA_Mobile.GoogleMaps.Handlers
         protected override MapView CreatePlatformView()
         {
             _cameraLogic = new CameraLogic(UpdateVisibleRegion);
-            _clusterLogic = new ClusterLogic(Context, Config.BitmapDescriptorFactory);
+            _clusterLogic = new ClusterLogic(Platform.CurrentActivity, Config.BitmapDescriptorFactory);
 
             Logics = new List<BaseLogic<GoogleMap>>
             {
