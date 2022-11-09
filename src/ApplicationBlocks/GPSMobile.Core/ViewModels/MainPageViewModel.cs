@@ -137,7 +137,7 @@ namespace GPSMobile.Core.ViewModels
                 RouteLine = new Polyline
                 {
                     IsClickable = false,
-                    StrokeColor = Color.FromHex("#4285f4"),
+                    StrokeColor = Color.FromArgb("#4285f4"),
                     StrokeWidth = 3f,
                     ZIndex = 1
                 };
@@ -277,7 +277,7 @@ namespace GPSMobile.Core.ViewModels
                         startPosition,
                         finalPosition);
                     PinCar.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                    if (Device.RuntimePlatform == Device.iOS)
+                    if (DeviceInfo.Platform==DevicePlatform.iOS)
                     {
                         if (IsWatching && !ctsRouting.IsCancellationRequested)
                         {
@@ -291,7 +291,7 @@ namespace GPSMobile.Core.ViewModels
                 length: (uint)(BaseTimeMoving / PlaySpeed),
                 finished: (val, b) =>
                 {
-                    if (Device.RuntimePlatform == Device.Android)
+                    if (DeviceInfo.Platform == DevicePlatform.Android)
                     {
                         if (IsWatching && !ctsRouting.IsCancellationRequested)
                         {
