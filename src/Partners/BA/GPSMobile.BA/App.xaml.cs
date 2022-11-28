@@ -8,13 +8,12 @@ namespace GPSMobile.BA
 {
     public partial class App : Application
     {
-        public App(MainPage page)
+        public App()
         {
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
             Resources.MergedDictionaries.Add(new LightTheme());
             Resources.MergedDictionaries.Add(new Styles());
             InitializeComponent();
-            MainPage = page;
         }
     }
 }

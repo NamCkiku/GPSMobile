@@ -1,14 +1,13 @@
-﻿using BA_Mobile.GoogleMaps;
+﻿using BA_Mobile.Core.ViewModels;
+using BA_Mobile.GoogleMaps;
 using BA_Mobile.GoogleMaps.Behaviors;
 using BA_Mobile.GoogleMaps.Helpers;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace GPSMobile.Core.ViewModels
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : ViewModelBase
     {
         public ICommand PinClickedCommand { get; }
         public ICommand IncreaseSpeedCommand { get; }
@@ -17,13 +16,19 @@ namespace GPSMobile.Core.ViewModels
 
         public ICommand PlayStopCommand { get; }
 
-        public MainPageViewModel()
-       {
+        public MainPageViewModel(ViewModelBaseServices baseServices) : base(baseServices)
+        {
             IncreaseSpeedCommand = new Command(IncreaseSpeed);
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             WatchingCommand = new Command(Watching);
             PlayStopCommand = new Command(PlayStop);
             contentview = new ContentView();
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            GetListRoute();
         }
 
         private ContentView contentview;
@@ -33,66 +38,19 @@ namespace GPSMobile.Core.ViewModels
         private Polyline RouteLine;
         private Position currentRoute;
         public int playSpeed = 4;
-
-        public int PlaySpeed
-        {
-            get => playSpeed;
-            set
-            {
-                if (playSpeed != value)
-                {
-                    playSpeed = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
+        public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
 
         public int PlayMin = 0;
 
         public int PlayMax = 99;
 
         public int playCurrent = 0;
-
-        public int PlayCurrent
-        {
-            get => playCurrent;
-            set
-            {
-                if (playCurrent != value)
-                {
-                    playCurrent = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
+        public int PlayCurrent { get => playCurrent; set => SetProperty(ref playCurrent, value); }
 
         public bool isWatching = true;
+        public bool IsWatching { get => isWatching; set => SetProperty(ref isWatching, value); }
 
-        public bool IsWatching
-        {
-            get => isWatching;
-            set
-            {
-                if (isWatching != value)
-                {
-                    isWatching = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
-
-        public Position CurrentRoute
-        {
-            get => currentRoute;
-            set
-            {
-                if (currentRoute != value)
-                {
-                    currentRoute = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
+        public Position CurrentRoute { get => currentRoute; set => SetProperty(ref currentRoute, value); }
 
         public List<Position> ListRoute { get; set; } = new List<Position>();
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
@@ -101,29 +59,11 @@ namespace GPSMobile.Core.ViewModels
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
-        public bool isPlaying;
-
-        public bool IsPlaying
-        {
-            get => isPlaying;
-            set
-            {
-                if (isPlaying != value)
-                {
-                    isPlaying = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
-
+        private bool isPlaying = false;
+        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value); }
         private double SPEED_MAX = 8;
         private int BaseTimeMoving = 500;
         private int BaseTimeRotating = 250;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string name = "") =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         public void GetListRoute()
         {
@@ -277,7 +217,7 @@ namespace GPSMobile.Core.ViewModels
                         startPosition,
                         finalPosition);
                     PinCar.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                    if (DeviceInfo.Platform==DevicePlatform.iOS)
+                    if (DeviceInfo.Platform == DevicePlatform.iOS)
                     {
                         if (IsWatching && !ctsRouting.IsCancellationRequested)
                         {

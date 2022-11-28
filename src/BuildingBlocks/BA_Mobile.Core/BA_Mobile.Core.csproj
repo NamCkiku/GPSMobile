@@ -11,15 +11,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
-	  <Folder Include="Resources\Styles\" />
+		<Folder Include="Resources\Images\" />
+		<Folder Include="Resources\Styles\" />
 	</ItemGroup>
-
 	<ItemGroup>
-	  <ProjectReference Include="..\BA_Mobile.Entities\BA_Mobile.Entities.csproj" />
-	  <ProjectReference Include="..\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj" />
-	  <ProjectReference Include="..\BA_Mobile.Service\BA_Mobile.Service.csproj" />
-	  <ProjectReference Include="..\BA_Mobile.Utilities\BA_Mobile.Utilities.csproj" />
+		<PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
+		<PackageReference Include="Prism.Maui" Version="8.1.273-pre" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BA_Mobile.Entities\BA_Mobile.Entities.csproj" />
+		<ProjectReference Include="..\BA_Mobile.GoogleMaps\BA_Mobile.GoogleMaps.csproj" />
+		<ProjectReference Include="..\BA_Mobile.Service\BA_Mobile.Service.csproj" />
+		<ProjectReference Include="..\BA_Mobile.Utilities\BA_Mobile.Utilities.csproj" />
 	</ItemGroup>
 
 </Project>
