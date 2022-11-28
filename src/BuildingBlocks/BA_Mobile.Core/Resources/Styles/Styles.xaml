@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="BA_Mobile.Core.Resources.Styles.Styles"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
+        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+    <Style TargetType="ListView">
+        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+    <Style ApplyToDerivedTypes="True" TargetType="SearchBar">
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource TextPlaceHolderColor}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="BarTextColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+
+    <Style TargetType="Grid">
+        <Setter Property="RowSpacing" Value="10" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style TargetType="StackLayout">
+        <Setter Property="Spacing" Value="10" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style TargetType="Frame">
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Button">
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Entry">
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource TextPlaceHolderColor}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="IsSpellCheckEnabled" Value="False" />
+        <Setter Property="IsTextPredictionEnabled" Value="False" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Editor">
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource TextPlaceHolderColor}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="DatePicker">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+    </Style>
+
+    <Style TargetType="IndicatorView">
+        <Setter Property="IndicatorColor" Value="{DynamicResource TextSecondaryColor}" />
+        <Setter Property="IndicatorsShape" Value="Circle" />
+        <Setter Property="SelectedIndicatorColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+    <!--  Button  -->
+    <Style Class="AcceptButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+        <Setter Property="Text" Value="ĐỒNG Ý" />
+    </Style>
+
+    <Style Class="CancelButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="Text" Value="HỦY BỎ" />
+    </Style>
+
+    <Style Class="DangerousButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{DynamicResource DangerousColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+
+    <!--  Box View draw line below group title  -->
+    <Style Class="SlimLine" TargetType="BoxView">
+        <Setter Property="HeightRequest" Value="1" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource TextPlaceHolderColor}" />
+    </Style>
+
+    <!--  Box View draw line below group title  -->
+    <Style Class="BoldText" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontFamily" Value="RobotoRegularBold" />
+    </Style>
+    <!--<OnPlatform
+        x:Key="HeightTitleBarGrid"
+        x:TypeArguments="x:Double"
+        Android="60"
+        iOS="70" />-->
+</ResourceDictionary>

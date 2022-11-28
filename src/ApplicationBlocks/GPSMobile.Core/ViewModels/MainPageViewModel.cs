@@ -28,7 +28,7 @@ namespace GPSMobile.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            GetListRoute();
+            //GetListRoute();
         }
 
         private ContentView contentview;

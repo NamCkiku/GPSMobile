@@ -64,7 +64,9 @@ namespace GPSMobile.Core
                 })
                 .OnAppStart(async navigationService =>
                 {
-                    var result = await navigationService.NavigateAsync("MainPage");
+                    navigationService.CreateBuilder()
+                    .AddNavigationPage();
+                    var result = await navigationService.NavigateAsync("NavigationPage/MainPage");
                     if (!result.Success)
                     {
                         System.Diagnostics.Debugger.Break();
