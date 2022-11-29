@@ -4,7 +4,6 @@ using BA_Mobile.GoogleMaps;
 using BA_Mobile.GoogleMaps.Behaviors;
 using BA_Mobile.GoogleMaps.Helpers;
 using System.Collections.ObjectModel;
-using System.Net.WebSockets;
 using System.Windows.Input;
 
 namespace GPSMobile.Core.ViewModels
@@ -305,7 +304,9 @@ namespace GPSMobile.Core.ViewModels
             var confirm = await _dialogPopupService.ShowConfirmationDialogAsync("Thông báo", "đâsđâsđâsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             if (confirm)
             {
-
+                _hUDProvider.DisplayProgress("");
+                await Task.Delay(5000);
+                _hUDProvider.Dismiss();
             }
         }
 

@@ -42,19 +42,9 @@ namespace GPSMobile.Core
             // main tabs of the app
             builder.UsePrism(configurePrism: prism =>
             {
-                prism.RegisterTypes(container =>
-                {
-                    container.ConfigurePagesCore();
-                    container.ConfigurePages();
-                })
-                .ConfigureServices(container =>
-                {
-                    container.AddServicesCore();
-                    container.AddServicesGPSMobile();
-                })
-                .OnInitialized(container =>
-                {
-                })
+                prism.RegisterTypes(OnRegisterTypes)
+                .ConfigureServices(ConfigureServices)
+                .OnInitialized(OnInitialized)
                 .OnAppStart(async navigationService =>
                 {
                     navigationService.CreateBuilder()
@@ -67,6 +57,21 @@ namespace GPSMobile.Core
                 });
             });
             return builder;
+        }
+        public static void OnInitialized(IContainerProvider containerProvider)
+        {
+            
+        }
+        public static void OnRegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.ConfigurePagesCore();
+            containerRegistry.ConfigurePages();
+        }
+
+        public static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddServicesCore();
+            services.AddServicesGPSMobile();
         }
     }
 }

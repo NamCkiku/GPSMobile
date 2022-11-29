@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using BA_Mobile.Core.Interfaces;
+using System.Windows.Input;
 
 namespace BA_Mobile.Core.ViewModels
 {
@@ -7,6 +8,7 @@ namespace BA_Mobile.Core.ViewModels
         protected INavigationService _navigationService { get; }
         protected IPageDialogService _pageDialogs { get; }
         protected IDialogService _dialogs { get; }
+        protected IHUDProvider _hUDProvider { get; }
 
         public bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
@@ -27,6 +29,7 @@ namespace BA_Mobile.Core.ViewModels
             _navigationService = baseServices.NavigationService;
             _pageDialogs = baseServices.PageDialogs;
             _dialogs = baseServices.Dialogs;
+            _hUDProvider = baseServices._hUDProvider;
         }
 
         public virtual void Initialize(INavigationParameters parameters)
@@ -98,9 +101,8 @@ namespace BA_Mobile.Core.ViewModels
             {
                 action.Invoke();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -119,9 +121,8 @@ namespace BA_Mobile.Core.ViewModels
             {
                 await func?.Invoke();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -135,9 +136,8 @@ namespace BA_Mobile.Core.ViewModels
             {
                 action?.Invoke();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -147,10 +147,55 @@ namespace BA_Mobile.Core.ViewModels
             {
                 await func?.Invoke();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        protected Task RunOnBackground(Action action, Action onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
+        {
+            if (showLoading)
+                DependencyService.Get<IHUDProvider>().DisplayProgress("");
+
+            return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion && !task.IsCanceled && (cts == null ? true : !cts.IsCancellationRequested))
+                {
+                    onComplete?.Invoke();
+                }
+                else if (task.IsFaulted)
+                {
+                    onError?.Invoke(task.Exception);
+                }
+
+                if (showLoading)
+                    DependencyService.Get<IHUDProvider>().Dismiss();
+
+                finalAction?.Invoke();
+            }));
+        }
+
+        protected Task RunOnBackground<T>(Func<Task<T>> action, Action<T> onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
+        {
+            if (showLoading)
+                DependencyService.Get<IHUDProvider>().DisplayProgress("");
+
+            return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion && !task.IsCanceled && (cts == null ? true : !cts.IsCancellationRequested))
+                {
+                    onComplete?.Invoke(task.Result);
+                }
+                else if (task.IsFaulted)
+                {
+                    onError?.Invoke(task.Exception);
+                }
+
+                if (showLoading)
+                    DependencyService.Get<IHUDProvider>().Dismiss();
+
+                finalAction?.Invoke();
+            }));
         }
 
         public ICommand ClosePageCommand
