@@ -14,7 +14,6 @@ namespace BA_Mobile.Core
         {
             // main tabs of the app
             builder
-                .ConfigurePages()
                 .ConfigureService()
                 .ConfigureMopups()
                 .ConfigureEssentials(essentials =>

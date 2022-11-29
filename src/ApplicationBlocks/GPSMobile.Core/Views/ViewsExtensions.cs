@@ -1,13 +1,15 @@
-﻿namespace GPSMobile.Core.Views
+﻿using GPSMobile.Core.ViewModels;
+
+namespace GPSMobile.Core.Views
 {
     public static class ViewsExtensions
     {
-        public static MauiAppBuilder ConfigurePages(this MauiAppBuilder builder)
+        public static IContainerRegistry ConfigurePages(this IContainerRegistry container)
         {
             // main tabs of the app
-            builder.Services.AddSingleton<MainPage>();
+            container.RegisterForNavigation<MainPage, MainPageViewModel>();
 
-            return builder;
+            return container;
         }
     }
 }

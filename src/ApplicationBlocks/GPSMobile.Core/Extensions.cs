@@ -1,7 +1,7 @@
 ﻿using BA_Mobile.Core;
+using BA_Mobile.Core.Views;
 using BA_Mobile.GoogleMaps.Hosting;
 using BA_Mobile.Service;
-using GPSMobile.Core.ViewModels;
 using GPSMobile.Core.Views;
 using GPSMobile.Service;
 
@@ -13,13 +13,12 @@ namespace GPSMobile.Core
         {
             // main tabs of the app
             builder.ConfigureMobileCore()
-                .ConfigurePages()
                 .ConfigurePrism()
                 .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
-                fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
-            });
+                {
+                    fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
+                    fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
+                });
 #if ANDROID
             var platformConfig = new BA_Mobile.GoogleMaps.Android.PlatformConfig
             {
@@ -35,7 +34,6 @@ namespace GPSMobile.Core
 
             builder.UseGoogleMaps(BA_Mobile.Utilities.Constant.Config.GoogleMapKeyiOS, platformConfig);
 #endif
-            builder.Services.AddServicesGPSMobile();
             return builder;
         }
 
@@ -46,7 +44,8 @@ namespace GPSMobile.Core
             {
                 prism.RegisterTypes(container =>
                 {
-                    container.RegisterForNavigation<MainPage, MainPageViewModel>();
+                    container.ConfigurePagesCore();
+                    container.ConfigurePages();
                 })
                 .ConfigureServices(container =>
                 {
@@ -55,12 +54,6 @@ namespace GPSMobile.Core
                 })
                 .OnInitialized(container =>
                 {
-                    //var foo = container.Resolve<IFoo>();
-                    // Do some initializations here
-                })
-                .ConfigureLogging(builder =>
-                {
-                    //builder.AddConsole();
                 })
                 .OnAppStart(async navigationService =>
                 {
