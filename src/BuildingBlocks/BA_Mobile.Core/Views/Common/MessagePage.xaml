@@ -3,20 +3,18 @@
     x:Class="BA_Mobile.Core.Views.MessagePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:dialogBase="clr-namespace:BA_Mobile.Core.Views">
+    xmlns:dialogBase="clr-namespace:BA_Mobile.Core.Views"
+    xmlns:style="clr-namespace:BA_Mobile.Core.Styles">
     <dialogBase:DialogBase.ActionsPlaceHolder>
         <Grid ColumnDefinitions=".5*,.5*" HorizontalOptions="FillAndExpand">
             <Button
                 Grid.ColumnSpan="2"
                 Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
                 Command="{Binding DestroyCommand}"
                 CornerRadius="17"
-                FontSize="Small"
                 HeightRequest="35"
                 HorizontalOptions="FillAndExpand"
-                Text="Đồng ý"
-                TextColor="{DynamicResource WhiteColor}" />
+                Style="{x:Static style:Styles.AcceptButton}" />
         </Grid>
     </dialogBase:DialogBase.ActionsPlaceHolder>
 </dialogBase:DialogBase>

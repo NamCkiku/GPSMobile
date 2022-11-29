@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animation="clr-namespace:Mopups.Animations;assembly=Mopups"
     xmlns:popup="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:style="clr-namespace:BA_Mobile.Core.Styles"
     x:Name="dialogBasePage">
     <popup:PopupPage.Animation>
         <animation:MoveAnimation
@@ -20,7 +21,7 @@
         <Frame
             Margin="40,0,40,0"
             Padding="0"
-            BackgroundColor="White"
+            BackgroundColor="{x:Static style:AppColors.WhiteColor}"
             CornerRadius="10"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
@@ -40,17 +41,16 @@
 
                     <StackLayout HorizontalOptions="FillAndExpand">
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="16"
+                            FontSize="{x:Static style:Dimens.FontSize16}"
                             HorizontalOptions="StartAndExpand"
-                            StyleClass="BoldText"
-                            Text="{Binding Title, Converter={StaticResource UpperCaseConverter}}"
+                            Style="{x:Static style:Styles.BoldText}"
+                            Text="{Binding Title}"
+                            TextTransform="Uppercase"
                             VerticalOptions="CenterAndExpand" />
-                        <BoxView BackgroundColor="#2C2C2E" HeightRequest="1" />
+                        <BoxView Style="{x:Static style:Styles.SlimLine}" />
                     </StackLayout>
                     <Label
-                        FontSize="16"
+                        FontSize="{x:Static style:Dimens.FontSize16}"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="{Binding Message}"
@@ -61,31 +61,8 @@
                         Content="{Binding Source={x:Reference dialogBasePage}, Path=ActionsPlaceHolder}"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="End" />
-                    <!--<Grid ColumnDefinitions=".5*,.5*" HorizontalOptions="FillAndExpand">
-                        <Button
-                            Grid.Column="0"
-                            Padding="0"
-                            BackgroundColor="#A7A7A7"
-                            Command="{Binding ClosePageCommand}"
-                            CornerRadius="17"
-                            FontSize="Small"
-                            HeightRequest="35"
-                            Text="Hủy"
-                            TextColor="{DynamicResource WhiteColor}" />
-                        <Button
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{StaticResource PrimaryColor}"
-                            Command="{Binding ApplyCommand}"
-                            CornerRadius="17"
-                            FontSize="Small"
-                            HeightRequest="35"
-                            Text="Đồng ý"
-                            TextColor="{DynamicResource WhiteColor}" />
-                    </Grid>-->
                 </StackLayout>
             </Grid>
-
         </Frame>
     </ContentPage.Content>
 </popup:PopupPage>

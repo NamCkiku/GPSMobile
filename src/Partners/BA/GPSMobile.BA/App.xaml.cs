@@ -11,7 +11,6 @@ namespace GPSMobile.BA
         {
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
             Resources.MergedDictionaries.Add(new LightTheme());
-            Resources.MergedDictionaries.Add(new Fonts());
             Resources.MergedDictionaries.Add(new Styles());
             InitializeComponent();
         }
