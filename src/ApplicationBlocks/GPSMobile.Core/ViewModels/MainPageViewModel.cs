@@ -1,4 +1,5 @@
-﻿using BA_Mobile.Core.ViewModels;
+﻿using BA_Mobile.Core.Interfaces;
+using BA_Mobile.Core.ViewModels;
 using BA_Mobile.GoogleMaps;
 using BA_Mobile.GoogleMaps.Behaviors;
 using BA_Mobile.GoogleMaps.Helpers;
@@ -9,6 +10,7 @@ namespace GPSMobile.Core.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        private readonly IDialogPopupService _dialogPopupService;
         public ICommand PinClickedCommand { get; }
         public ICommand IncreaseSpeedCommand { get; }
         public ICommand DecreaseSpeedCommand { get; }
@@ -16,13 +18,14 @@ namespace GPSMobile.Core.ViewModels
 
         public ICommand PlayStopCommand { get; }
 
-        public MainPageViewModel(ViewModelBaseServices baseServices) : base(baseServices)
+        public MainPageViewModel(ViewModelBaseServices baseServices, IDialogPopupService dialogPopupService) : base(baseServices)
         {
             IncreaseSpeedCommand = new Command(IncreaseSpeed);
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             WatchingCommand = new Command(Watching);
             PlayStopCommand = new Command(PlayStop);
             contentview = new ContentView();
+            this._dialogPopupService = dialogPopupService;
         }
 
         public override void OnPageAppearingFirstTime()
@@ -295,9 +298,10 @@ namespace GPSMobile.Core.ViewModels
             PlaySpeed /= 2;
         }
 
-        private void Watching()
+        private async void Watching()
         {
             IsWatching = !IsWatching;
+            
         }
 
         private void Stop()

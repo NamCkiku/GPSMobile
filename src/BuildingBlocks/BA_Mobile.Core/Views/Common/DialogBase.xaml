@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    x:Class="BA_Mobile.Core.Views.DialogBase"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:popup="clr-namespace:Mopups.Pages;assembly=Mopups"
+    x:Name="dialogBasePage">
+    <popup:PopupPage.Animation>
+        <animation:MoveAnimation
+            DurationIn="300"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center" />
+    </popup:PopupPage.Animation>
+    <ContentPage.Content>
+        <Frame
+            Margin="40,0,40,0"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="10"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Grid>
+                <Image
+                    Margin="10"
+                    HeightRequest="25"
+                    HorizontalOptions="End"
+                    Source="ic_close.png"
+                    VerticalOptions="Start"
+                    WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DestroyCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <StackLayout Margin="20" Spacing="20">
+
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="myFontFamilyBold"
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            StyleClass="BoldText"
+                            Text="{Binding Title, Converter={StaticResource UpperCaseConverter}}"
+                            VerticalOptions="CenterAndExpand" />
+                        <BoxView BackgroundColor="#2C2C2E" HeightRequest="1" />
+                    </StackLayout>
+                    <Label
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding Message}"
+                        VerticalOptions="CenterAndExpand" />
+
+                    <ContentView
+                        Grid.Row="1"
+                        Content="{Binding Source={x:Reference dialogBasePage}, Path=ActionsPlaceHolder}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End" />
+                    <!--<Grid ColumnDefinitions=".5*,.5*" HorizontalOptions="FillAndExpand">
+                        <Button
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="#A7A7A7"
+                            Command="{Binding ClosePageCommand}"
+                            CornerRadius="17"
+                            FontSize="Small"
+                            HeightRequest="35"
+                            Text="Hủy"
+                            TextColor="{DynamicResource WhiteColor}" />
+                        <Button
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{StaticResource PrimaryColor}"
+                            Command="{Binding ApplyCommand}"
+                            CornerRadius="17"
+                            FontSize="Small"
+                            HeightRequest="35"
+                            Text="Đồng ý"
+                            TextColor="{DynamicResource WhiteColor}" />
+                    </Grid>-->
+                </StackLayout>
+            </Grid>
+
+        </Frame>
+    </ContentPage.Content>
+</popup:PopupPage>

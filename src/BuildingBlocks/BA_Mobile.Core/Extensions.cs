@@ -1,7 +1,8 @@
 ﻿using BA_Mobile.Core.Constant;
-using BA_Mobile.Core.ViewModels;
+using BA_Mobile.Core.Interfaces;
 using BA_Mobile.Core.Views;
 using BA_Mobile.Service;
+using Mopups.Hosting;
 
 namespace BA_Mobile.Core
 {
@@ -12,7 +13,9 @@ namespace BA_Mobile.Core
         public static MauiAppBuilder ConfigureMobileCore(this MauiAppBuilder builder)
         {
             // main tabs of the app
-            builder.ConfigurePages().ConfigureViewModels();
+            builder
+                .ConfigurePages()
+                .ConfigureService().ConfigureMopups();
             builder.Services.AddServicesCore();
             return builder;
         }
